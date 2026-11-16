@@ -12,6 +12,7 @@ import {
   Sparkles, 
   Code2, 
   Send, 
+  Compass,
   User, 
   Cpu
 } from 'lucide-react';
@@ -37,7 +38,7 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      const sections = ['hero', 'scatter', 'about', 'skills', 'projects', 'timeline', 'contact'];
+      const sections = ['hero', 'journey', 'scatter', 'about', 'skills', 'projects', 'timeline', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -59,6 +60,7 @@ export const Navbar: React.FC = () => {
 
   const navItems = [
     { label: "Home", href: "#hero", id: "hero", icon: Sparkles },
+    { label: "Odyssey", href: "#journey", id: "journey", icon: Compass },
     { label: "3D Scatter", href: "#scatter", id: "scatter", icon: Layers },
     { label: "About", href: "#about", id: "about", icon: User },
     { label: "Skills", href: "#skills", id: "skills", icon: Cpu },
@@ -71,6 +73,7 @@ export const Navbar: React.FC = () => {
     { id: 'purple', label: 'Neon Violet', color: 'bg-purple-500' },
     { id: 'emerald', label: 'Emerald Matrix', color: 'bg-emerald-400' },
     { id: 'amber', label: 'Solar Amber', color: 'bg-amber-400' },
+    { id: 'sapphire', label: 'Electric Sapphire', color: 'bg-sky-400' },
   ];
 
   const handleNavClick = (href: string) => {

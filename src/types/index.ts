@@ -39,7 +39,27 @@ export interface ExperienceItem {
   technologies: string[];
 }
 
-export type ThemeColor = 'cyan' | 'purple' | 'emerald' | 'amber';
+export type ThemeColor = 'cyan' | 'purple' | 'emerald' | 'amber' | 'sapphire';
+
+export interface JourneyChapter {
+  id: string;
+  chapterNumber: string;
+  yearBadge: string;
+  title: string;
+  tagline: string;
+  description: string;
+  theme: ThemeColor;
+  iconName: string;
+  shape3D: 'cube' | 'chip' | 'neural' | 'scatter' | 'portal';
+  achievements: string[];
+  techStack: string[];
+  projectLink?: {
+    label: string;
+    url: string;
+    isExternal: boolean;
+  };
+  metricsBadge: string;
+}
 
 export interface TerminalEntry {
   command: string;

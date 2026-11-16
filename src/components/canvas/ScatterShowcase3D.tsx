@@ -60,7 +60,8 @@ export const ScatterShowcase3D: React.FC = () => {
       cyan: 0x00f2fe,
       purple: 0xc084fc,
       emerald: 0x34d399,
-      amber: 0xfbbf24
+      amber: 0xfbbf24,
+      sapphire: 0x38bdf8
     }[theme] || 0x00f2fe;
 
     const mainColor = new THREE.Color(themeHex);

@@ -1,4 +1,112 @@
-import { Project, Skill, ExperienceItem } from '../types';
+import { Project, Skill, ExperienceItem, JourneyChapter } from '../types';
+
+export const JOURNEY_CHAPTERS: JourneyChapter[] = [
+  {
+    id: "chapter-01",
+    chapterNumber: "01",
+    yearBadge: "ORIGINS // TERMUX & C",
+    title: "Genesis: The Terminal & System Roots",
+    tagline: "From raw C pointers and POSIX shells to mobile hacker rigs",
+    description: "My journey kicked off not in high-end workstations, but in raw terminal environments. Learning low-level C programming, understanding memory management, debugging bash pipelines, and turning an Android device into a full developer environment using Termux and Kali Linux.",
+    theme: "emerald",
+    shape3D: "cube",
+    iconName: "Terminal",
+    metricsBadge: "100+ Shell Scripts Authored",
+    achievements: [
+      "Configured complete mobile POSIX coding environment using Kali Linux & Termux",
+      "Mastered foundational C algorithms, pointer arithmetic, and system calls",
+      "Authored custom CLI utilities and automation pipelines in Bash & Python"
+    ],
+    techStack: ["C Programming", "Kali Linux", "Termux", "Bash", "Python", "Git"]
+  },
+  {
+    id: "chapter-02",
+    chapterNumber: "02",
+    yearBadge: "EMBEDDED // HARDWARE LAB",
+    title: "Silicon Horizons: SBCs & boardVault",
+    tagline: "Decoding Single Board Computers & Microcontroller architectures",
+    description: "Driven by curiosity about how software talks to physical silicon, I dove deep into Single Board Computers (Raspberry Pi 5, Orange Pi 5) and microcontrollers (ESP32, STM32, Arduino). Seeing no unified comparison platform for embedded makers, I built and launched boardVault.",
+    theme: "amber",
+    shape3D: "chip",
+    iconName: "Cpu",
+    metricsBadge: "50+ Hardware Specs Cataloged",
+    projectLink: {
+      label: "Explore boardVault SaaS",
+      url: "https://github.com/Aman-kumar2006/boardVault",
+      isExternal: true
+    },
+    achievements: [
+      "Benchmarked processing speed, thermal throttling, and GPIO configurations across 50+ boards",
+      "Engineered the boardVault comparison engine with parametric filtering",
+      "Designed high-performance responsive UI for desktop and mobile makers"
+    ],
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Node.js", "SBC Hardware", "ESP32"]
+  },
+  {
+    id: "chapter-03",
+    chapterNumber: "03",
+    yearBadge: "IMPACT // PRODUCTION SAAS",
+    title: "Engineering for Humanity: foodloop.ai & SolFinder",
+    tagline: "Building intelligent platforms that solve societal and enterprise challenges",
+    description: "Transitioned from technical exploration into architecting production-ready solutions for real-world impact. Built foodloop.ai to combat food waste using AI freshness prediction and donor-shelter routing, followed by the SolFinder enterprise research portal.",
+    theme: "cyan",
+    shape3D: "neural",
+    iconName: "Sparkles",
+    metricsBadge: "Zero-Waste AI Architecture",
+    projectLink: {
+      label: "Inspect foodloop.ai",
+      url: "https://github.com/Aman-kumar2006/foodloop.ai",
+      isExternal: true
+    },
+    achievements: [
+      "Architected food waste diversion model prioritizing donations based on shelf-life heuristics",
+      "Engineered interactive geospatial routing matching kitchens with local food shelters",
+      "Built enterprise-ready SolFinder technology showcase with 100/100 Lighthouse performance"
+    ],
+    techStack: ["TypeScript", "React", "AI APIs", "Leaflet", "Node.js", "Modern UX"]
+  },
+  {
+    id: "chapter-04",
+    chapterNumber: "04",
+    yearBadge: "CREATIVE // SPATIAL 3D",
+    title: "Transcending the Flat Screen: 3D Spatial WebGL",
+    tagline: "Breathing life into the web with real-time physics and particle matrices",
+    description: "Standard flat websites felt static. I embraced Three.js and custom WebGL shaders to engineer dimensional web experiences where data physically deconstructs, orbits, and responds to scroll velocity and user touch.",
+    theme: "purple",
+    shape3D: "scatter",
+    iconName: "Layers",
+    metricsBadge: "1800+ Real-time 3D Particles",
+    achievements: [
+      "Engineered scroll-velocity linked particle dispersion algorithms in Three.js",
+      "Built custom Web Audio synthesizer generating zero-asset audio directly in the browser",
+      "Crafted 3D deconstruction matrices showcasing hardware and software architecture shards"
+    ],
+    techStack: ["Three.js", "WebGL", "BufferGeometry", "Web Audio API", "CSS 3D Transforms"]
+  },
+  {
+    id: "chapter-05",
+    chapterNumber: "05",
+    yearBadge: "CURRENT // B.TECH CSE & HORIZON",
+    title: "The Next Frontier: Continuous Evolution",
+    tagline: "Computer Science fundamentals, open-source craft, and the road ahead",
+    description: "Currently pursuing B.Tech in Computer Science & Engineering. Deepening algorithmic problem solving (DSA), distributed systems, and modern software architectures. Actively looking for high-impact software engineering internships and ambitious developer teams.",
+    theme: "sapphire",
+    shape3D: "portal",
+    iconName: "Zap",
+    metricsBadge: "15+ Public Repos & Growing",
+    projectLink: {
+      label: "View All GitHub Repositories",
+      url: "https://github.com/2006-Aman",
+      isExternal: true
+    },
+    achievements: [
+      "15+ public repositories documented across GitHub (@2006-Aman / @Aman-kumar2006)",
+      "Continuous algorithmic problem solving in DSA, Operating Systems, and DBMS",
+      "Available for Summer / Fall internships, full-stack contracts, and open collaborations"
+    ],
+    techStack: ["Data Structures", "Algorithms", "Full-Stack Web", "DevOps", "Three.js"]
+  }
+];
 
 export const PERSONAL_INFO = {
   name: "Aman Kumar",

@@ -44,7 +44,8 @@ export const Background3D: React.FC = () => {
       cyan: { p: new THREE.Color('#00f2fe'), s: new THREE.Color('#38bdf8'), a: new THREE.Color('#818cf8') },
       purple: { p: new THREE.Color('#c084fc'), s: new THREE.Color('#a855f7'), a: new THREE.Color('#e879f9') },
       emerald: { p: new THREE.Color('#34d399'), s: new THREE.Color('#10b981'), a: new THREE.Color('#06b6d4') },
-      amber: { p: new THREE.Color('#fbbf24'), s: new THREE.Color('#f59e0b'), a: new THREE.Color('#ea580c') }
+      amber: { p: new THREE.Color('#fbbf24'), s: new THREE.Color('#f59e0b'), a: new THREE.Color('#ea580c') },
+      sapphire: { p: new THREE.Color('#38bdf8'), s: new THREE.Color('#6366f1'), a: new THREE.Color('#818cf8') }
     };
 
     const currentPalette = themeColors[theme] || themeColors.cyan;

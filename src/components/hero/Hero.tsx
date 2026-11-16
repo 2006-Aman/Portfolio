@@ -98,12 +98,21 @@ export const Hero: React.FC = () => {
         {/* Call to Action Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
           <button
-            onClick={() => scrollTo('projects')}
+            onClick={() => scrollTo('journey')}
             onMouseEnter={playHover}
             className="group relative px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-black font-bold font-mono text-sm shadow-xl shadow-cyan-500/25 hover:shadow-cyan-400/40 transition-all duration-300 hover:scale-105 flex items-center gap-2.5"
           >
-            <span>Explore Projects</span>
+            <Sparkles className="w-4 h-4 text-black animate-spin-slow" />
+            <span>Begin Developer Odyssey</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+
+          <button
+            onClick={() => scrollTo('projects')}
+            onMouseEnter={playHover}
+            className="px-6 py-3.5 rounded-2xl glass-panel border border-white/10 text-slate-300 hover:text-white font-mono text-sm hover:border-cyan-400/50 transition-all duration-300 hover:scale-105 flex items-center gap-2"
+          >
+            <span>Explore Projects</span>
           </button>
 
           <button

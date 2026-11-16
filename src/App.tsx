@@ -5,6 +5,7 @@ import { CustomCursor } from './components/ui/CustomCursor';
 import { ScrollProgressHUD } from './components/ui/ScrollProgressHUD';
 import { Navbar } from './components/navbar/Navbar';
 import { Hero } from './components/hero/Hero';
+import { JourneyExperience } from './components/journey/JourneyExperience';
 import { ScatterSection } from './components/scatter/ScatterSection';
 import { About } from './components/about/About';
 import { SkillsSection } from './components/skills/SkillsSection';
@@ -44,6 +45,7 @@ const PortfolioContent: React.FC = () => {
       {/* Main Page Flow */}
       <main className="relative z-10 flex flex-col">
         <Hero />
+        <JourneyExperience />
         <ScatterSection />
         <About />
         <SkillsSection />
