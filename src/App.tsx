@@ -1,61 +1,56 @@
 import React from 'react';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
-import { Background3D } from './components/canvas/Background3D';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { ScrollProgressHUD } from './components/ui/ScrollProgressHUD';
-import { Navbar } from './components/navbar/Navbar';
-import { Hero } from './components/hero/Hero';
-import { JourneyExperience } from './components/journey/JourneyExperience';
-import { ScatterSection } from './components/scatter/ScatterSection';
-import { About } from './components/about/About';
-import { SkillsSection } from './components/skills/SkillsSection';
-import { ProjectsSection } from './components/projects/ProjectsSection';
-import { ExperienceTimeline } from './components/experience/ExperienceTimeline';
-import { ContactSection } from './components/contact/ContactSection';
-import { Footer } from './components/footer/Footer';
+import { CinematicNavbar } from './components/cinematic/CinematicNavbar';
+import { Scene1Hero } from './components/cinematic/Scene1Hero';
+import { Scene2Universe } from './components/cinematic/Scene2Universe';
+import { Scene3Timeline } from './components/cinematic/Scene3Timeline';
+import { Scene4CurvedShowcase } from './components/cinematic/Scene4CurvedShowcase';
+import { Scene5ClimaxContact } from './components/cinematic/Scene5ClimaxContact';
 import { ProjectModal } from './components/projects/ProjectModal';
 import { InteractiveTerminal } from './components/terminal/InteractiveTerminal';
 
-const PortfolioContent: React.FC = () => {
+const CinematicPortfolioContent: React.FC = () => {
   const { activeModalProject, setActiveModalProject } = useTheme();
 
   return (
-    <div className="relative min-h-screen bg-[#030712] text-slate-100 selection:bg-cyan-500 selection:text-black overflow-x-hidden">
-      {/* 3D Global Space Canvas */}
-      <Background3D />
-
-      {/* Cyber Cursor */}
+    <div className="relative min-h-screen bg-[#050508] text-slate-100 selection:bg-cinematic-red selection:text-white overflow-x-hidden font-sans">
+      {/* Precision Custom Pointer */}
       <CustomCursor />
 
-      {/* Fixed Telemetry Scroll HUD */}
+      {/* Real-time Z-depth Telemetry HUD */}
       <ScrollProgressHUD />
 
-      {/* Floating Interactive Terminal */}
+      {/* Floating Interactive Terminal Emulator */}
       <InteractiveTerminal />
 
-      {/* Project Details Modal */}
+      {/* Architectural Specs Modal */}
       <ProjectModal
         project={activeModalProject}
         onClose={() => setActiveModalProject(null)}
       />
 
-      {/* Top Navbar */}
-      <Navbar />
+      {/* Top Cinematic Film Navbar */}
+      <CinematicNavbar />
 
-      {/* Main Page Flow */}
+      {/* Full 5-Scene Cinematic Storyline */}
       <main className="relative z-10 flex flex-col">
-        <Hero />
-        <JourneyExperience />
-        <ScatterSection />
-        <About />
-        <SkillsSection />
-        <ProjectsSection onSelectProject={(p) => setActiveModalProject(p)} />
-        <ExperienceTimeline />
-        <ContactSection />
-      </main>
+        {/* Scene 01: The Protagonist & Giant Name Hero */}
+        <Scene1Hero />
 
-      {/* Footer */}
-      <Footer />
+        {/* Scene 02: The Developer Universe & 3D Undulating Golden Energy Ribbon */}
+        <Scene2Universe />
+
+        {/* Scene 03: A Journey Through Time & Arched Radial Dial with Laser Spotlight */}
+        <Scene3Timeline />
+
+        {/* Scene 04: The Curved Panoramic Screen Theater & 3D Amphitheater */}
+        <Scene4CurvedShowcase onSelectProject={(p) => setActiveModalProject(p)} />
+
+        {/* Scene 05: The Climax, Supercar Diagonal Split & Direct Dispatch */}
+        <Scene5ClimaxContact />
+      </main>
     </div>
   );
 };
@@ -63,7 +58,7 @@ const PortfolioContent: React.FC = () => {
 export function App() {
   return (
     <ThemeProvider>
-      <PortfolioContent />
+      <CinematicPortfolioContent />
     </ThemeProvider>
   );
 }

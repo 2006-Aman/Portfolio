@@ -8,6 +8,15 @@ export default {
   theme: {
     extend: {
       colors: {
+        cinematic: {
+          red: '#ff3b1f',
+          redGlow: 'rgba(255, 59, 31, 0.45)',
+          redDark: '#991b1b',
+          gold: '#ffb703',
+          goldGlow: 'rgba(255, 183, 3, 0.45)',
+          obsidian: '#050508',
+          smoke: '#0e0e13'
+        },
         cyber: {
           bg: '#05070e',
           card: '#0a0f1d',
@@ -24,6 +33,9 @@ export default {
         }
       },
       fontFamily: {
+        bebas: ['"Bebas Neue"', 'sans-serif'],
+        cinzel: ['Cinzel', 'serif'],
+        syne: ['Syne', 'sans-serif'],
         sans: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace']
       },
