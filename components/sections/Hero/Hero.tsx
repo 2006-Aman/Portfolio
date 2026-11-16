@@ -8,11 +8,11 @@ import styles from "./Hero.module.css";
 import { useLang } from "@/lib/i18n";
 
 const STATS_LEFT = [
-  { n: 20, suffix: "+", key: "stat.projects", icon: "/images/icons/projects.png" },
-  { n: 5, suffix: "+", key: "stat.years", icon: "/images/icons/years.png" },
+  { n: 30, suffix: "+", key: "stat.projects", icon: "/images/icons/projects.png" },
+  { n: 15, suffix: "+", key: "stat.years", icon: "/images/icons/years.png" },
 ];
 const STATS_RIGHT = [
-  { n: 10, suffix: "+", key: "stat.countries", icon: "/images/icons/countries.png" },
+  { n: 6, suffix: "+", key: "stat.countries", icon: "/images/icons/countries.png" },
   { n: 100, suffix: "%", key: "stat.satisfaction", icon: "/images/icons/satisfaction.png" },
 ];
 
@@ -222,7 +222,7 @@ export default function Hero() {
           <Image
             className={styles.portrait}
             src="/images/portrait.png"
-            alt="Gireesh Kumar Reddy — Product Designer"
+            alt="Aman Kumar — AI & ML Engineer"
             width={554}
             height={573}
             priority

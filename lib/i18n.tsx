@@ -38,24 +38,24 @@ export const DICT: Record<string, Entry> = {
 
   /* ---------------- hero ---------------- */
   "hero.kicker": {
-    en: "Full Stack Developer & Computer Science Engineer",
-    fr: "Développeur Full Stack & Ingénieur Informatique",
+    en: "AI & Machine Learning · Full Stack Web Developer",
+    fr: "Intelligence Artificielle, ML & Développeur Full Stack",
   },
-  "hero.h1a": { en: "Systems that feel", fr: "Des systèmes qui semblent" },
-  "hero.h1aEm": { en: "effortless.", fr: "évidents." },
-  "hero.h1b": { en: "Code that", fr: "Du code qui" },
-  "hero.h1bEm": { en: "scales.", fr: "tient la charge." },
+  "hero.h1a": { en: "Intelligent solutions that", fr: "Des solutions intelligentes qui" },
+  "hero.h1aEm": { en: "solve.", fr: "résolvent." },
+  "hero.h1b": { en: "Architectures that", fr: "Des architectures qui" },
+  "hero.h1bEm": { en: "scale.", fr: "tiennent la charge." },
   "hero.sub": {
-    en: "I engineer digital platforms end to end — 3D interactive web, robust backends, AI pipelines, and distributed architectures — with one obsession: building fast, resilient, and beautiful experiences.",
-    fr: "Je conçois des plateformes numériques de bout en bout — web 3D interactif, backends robustes, pipelines IA et architectures distribuées.",
+    en: "AI & ML Student passionate about building intelligent solutions and solving real-world problems using Machine Learning, Generative AI, and modern Full Stack engineering.",
+    fr: "Étudiant en IA & ML passionné par la création de solutions intelligentes et la résolution de problèmes réels grâce au Machine Learning et à l'IA Générative.",
   },
   "hero.cta1": { en: "View My Work", fr: "Voir mes projets" },
   "hero.cta2": { en: "Explore Stack", fr: "Explorer la stack" },
   "hero.scroll": { en: "Scroll to Explore", fr: "Faites défiler" },
-  "stat.projects": { en: "Projects Built", fr: "Projets réalisés" },
-  "stat.years": { en: "Years of Coding", fr: "Ans d’expérience" },
-  "stat.countries": { en: "Active Repositories", fr: "Dépôts actifs" },
-  "stat.satisfaction": { en: "Code Reliability", fr: "Fiabilité du code" },
+  "stat.projects": { en: "Repositories on GitHub", fr: "Dépôts sur GitHub" },
+  "stat.years": { en: "Core Projects Built", fr: "Projets majeurs réalisés" },
+  "stat.countries": { en: "AI & ML Models", fr: "Modèles d'IA & ML" },
+  "stat.satisfaction": { en: "Code Quality & Reliability", fr: "Qualité & fiabilité du code" },
 
   /* ---------------- about ---------------- */
   "about.eyebrow": { en: "About", fr: "À propos" },
@@ -64,24 +64,24 @@ export const DICT: Record<string, Entry> = {
   "about.h2Em": { en: "lead", fr: "guider" },
   "about.h2c": { en: "it.", fr: "." },
   "about.m1": {
-    en: "boardVault — Embedded Hardware & SBC Benchmarking SaaS",
-    fr: "boardVault — Plateforme de benchmark matériel embarqué",
+    en: "Public Repositories authored & maintained on GitHub",
+    fr: "Dépôts publics créés et maintenus sur GitHub",
   },
   "about.m2": {
-    en: "Years of hands-on software & full-stack development",
-    fr: "Ans d’expérience en développement logiciel & full-stack",
+    en: "AI & Machine Learning models and RAG pipelines built",
+    fr: "Modèles d'IA, Machine Learning et pipelines RAG développés",
   },
   "about.m3": {
-    en: "Commits & contributions across modern open-source stacks",
-    fr: "Contributions & commits sur des stacks open-source",
+    en: "Single Board Computers & MCUs cataloged in boardVault",
+    fr: "Cartes SBC et microcontrôleurs répertoriés dans boardVault",
   },
   "about.m4": {
-    en: "Data points & specs cataloged across hardware & AI tools",
-    fr: "Données & spécifications répertoriées",
+    en: "Model precision & classification accuracy achieved",
+    fr: "Précision et performance des modèles d'évaluation",
   },
   "about.edu": {
-    en: "B.Tech in Computer Science & Engineering · India · Full Stack Architectures · Distributed Systems · WebGL & 3D Interactive Web",
-    fr: "B.Tech en Informatique · Inde · Architectures Full Stack · Systèmes Distribués · WebGL & Web 3D",
+    en: "AI & ML Student · B.Tech in Computer Science & Engineering · India · Passionate about building intelligent solutions using Machine Learning & Generative AI",
+    fr: "Étudiant IA & ML · B.Tech Informatique · Inde · Passionné par les solutions intelligentes et l'IA Générative",
   },
   "about.cta": { en: "Explore My Work", fr: "Découvrir mes projets" },
 
@@ -97,31 +97,31 @@ export const DICT: Record<string, Entry> = {
 
   /* ---------------- design stack ---------------- */
   "stack.eyebrow": { en: "Toolkit", fr: "Outils" },
-  "stack.h2": { en: "My Design", fr: "Ma boîte à" },
-  "stack.h2Em": { en: "Stack.", fr: "outils." },
+  "stack.h2": { en: "My Tech", fr: "Ma stack" },
+  "stack.h2Em": { en: "Stack.", fr: "technique." },
   "stack.lede": {
-    en: "The tools I use to research, design, prototype, collaborate and ship — from the first rough sketch to production code.",
-    fr: "Les outils avec lesquels je recherche, conçois, prototype, collabore et livre — du premier croquis au code en production.",
+    en: "The programming languages, frameworks, machine learning libraries, and cloud platforms I use to engineer intelligent solutions and production systems.",
+    fr: "Les langages, frameworks, bibliothèques de machine learning et plateformes cloud que j'utilise pour concevoir des systèmes intelligents.",
   },
-  "stack.count": { en: "tools", fr: "outils" },
+  "stack.count": { en: "technologies", fr: "technologies" },
   "stack.disciplines": { en: "disciplines", fr: "disciplines" },
 
   /* ---------------- work ---------------- */
   "work.eyebrow": { en: "Featured Work", fr: "Projets sélectionnés" },
-  "work.h2a": { en: "Selected projects,", fr: "Des projets choisis," },
-  "work.h2b": { en: "designed to", fr: "conçus pour être" },
-  "work.h2Em": { en: "ship.", fr: "livrés." },
+  "work.h2a": { en: "Selected repositories,", fr: "Dépôts sélectionnés," },
+  "work.h2b": { en: "engineered to", fr: "conçus pour" },
+  "work.h2Em": { en: "perform.", fr: "performer." },
   "work.lede": {
-    en: "Product UX, product strategy, data design and systems design — each project a different capability, all one practice.",
-    fr: "UX produit, stratégie produit, design de données et de systèmes — chaque projet une compétence différente, une seule pratique.",
+    en: "Predictive ML models, contextual RAG pipelines, embedded hardware SaaS, and high-performance developer tools — all open on GitHub @2006-Aman.",
+    fr: "Modèles de ML prédictif, pipelines RAG, SaaS matériel embarqué et outils de développement — tous ouverts sur GitHub @2006-Aman.",
   },
   "work.open": { en: "Open case study", fr: "Voir l’étude de cas" },
   "work.hint": { en: "SCROLL TO BROWSE", fr: "FAITES DÉFILER" },
 
   /* ---------------- experience ---------------- */
   "exp.eyebrow": { en: "Experience", fr: "Expérience" },
-  "exp.h2": { en: "Where I built my", fr: "Là où j’ai forgé mon" },
-  "exp.h2Em": { en: "judgment.", fr: "jugement." },
+  "exp.h2": { en: "Where I engineered my", fr: "Là où j’ai forgé mon" },
+  "exp.h2Em": { en: "craft.", fr: "expertise." },
   "exp.worked": { en: "What I worked on", fr: "Ce sur quoi j’ai travaillé" },
   "exp.impact": { en: "Impact", fr: "Impact" },
   "exp.tools": { en: "Tools & skills", fr: "Outils & compétences" },
@@ -180,11 +180,11 @@ export const DICT: Record<string, Entry> = {
 
   /* ---------------- connect ---------------- */
   "connect.eyebrow": { en: "Let’s Connect", fr: "Restons en contact" },
-  "connect.h2a": { en: "Let’s create what’s", fr: "Créons ce qui" },
+  "connect.h2a": { en: "Let’s build what’s", fr: "Bâtissons ce qui" },
   "connect.h2Em": { en: "next.", fr: "vient." },
   "connect.lede": {
-    en: "I’m open to product design roles, collaborations and good conversations — if you’re building something people should love, I’d like to hear about it.",
-    fr: "Je suis ouvert aux postes en product design, aux collaborations et aux bonnes conversations — si vous construisez quelque chose que les gens devraient adorer, parlons-en.",
+    en: "I’m open to AI & ML engineering roles, full-stack software development, collaborations, and open-source projects — if you’re building intelligent solutions that solve real problems, let's connect.",
+    fr: "Je suis ouvert aux opportunités en IA & ML, au développement full-stack, aux collaborations et aux projets open source.",
   },
   "connect.cta": { en: "Start a Conversation", fr: "Démarrer la conversation" },
   "connect.credit": { en: "Designed & Developed by", fr: "Conçu & développé par" },
