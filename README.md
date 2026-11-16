@@ -1,116 +1,82 @@
-# Aman Kumar (@2006-Aman) — 3D Interactive Cybernetic Portfolio
+# Gireesh — Portfolio
 
-> A cutting-edge, 3D WebGL interactive portfolio engineered for **Aman Kumar**, B.Tech Computer Science & Engineering student and Full-Stack Developer.
+Personal portfolio of **Gireesh Kumar Reddy Kolli**, Product Designer & UX
+Consultant (Antibes, France). A single-page cinematic experience: full-screen
+scenes stacked on top of each other, each one rising over the last as you
+scroll, with scroll-driven set pieces inside them.
 
-[![Live Demo](https://img.shields.io/badge/Live-Portfolio-00f2fe?style=for-the-badge&logo=vercel)](https://aman-kumar-portfolio.netlify.app)
-[![GitHub Profile](https://img.shields.io/badge/GitHub-2006--Aman-181717?style=for-the-badge&logo=github)](https://github.com/2006-Aman)
-[![Alternate GitHub](https://img.shields.io/badge/GitHub-Aman--kumar2006-181717?style=for-the-badge&logo=github)](https://github.com/Aman-kumar2006)
+**Live product work:** [myheeding.com](https://www.myheeding.com/en) ·
+**Profiles:** [LinkedIn](https://www.linkedin.com/in/gireesh-kumar-reddy-kolli-) ·
+[GitHub](https://github.com/gireeshkumarreddy) ·
+[Instagram](https://www.instagram.com/itsgireeshreddy)
 
----
+## Stack
 
-## 🌟 Key Features
+| Concern | Choice |
+|---|---|
+| Framework | Next.js 16 (App Router) + TypeScript |
+| Animation | GSAP + ScrollTrigger |
+| Smooth scroll | Lenis (single rAF loop, see `lib/lenis.ts`) |
+| 3D | Three.js (intro tunnel, journey light cables) |
+| Styling | CSS Modules + design tokens in `app/globals.css` |
+| Content | Typed local files in `content/` |
+| i18n | EN/FR React context (`lib/i18n.tsx`) — pure state, survives scroll |
 
-### 1. 🌌 3D WebGL Global Canvas & Dynamic Particle Scatter
-- Powered by direct **Three.js** buffer geometry particle physics.
-- **Scroll-Velocity Responsive**: As you scroll through the page, particles dynamically disperse and scatter into deep 3D coordinates based on velocity and section depth.
-- Re-crystallizes into harmonic formations as the scroll settles.
+## The scenes
 
-### 2. ⚡ Dedicated Quantum Information Scatter Matrix
-- Interactive 3D data-core showcasing modular compute shards: `boardVault`, `foodloop.ai`, `SolFinder`, and `Kali/Termux`.
-- Modes:
-  - **Assembled**: Stable polyhedron coordinate system.
-  - **Scatter Burst**: Full radial dispersion of data nodes.
-  - **Vortex**: Spiraling 3D particle vortex.
-  - **Orbit Ring**: Crystalline orbital ring.
-- Real-time 3D rotation via mouse click-and-drag.
-- Deconstructed Architecture cards with 3D perspective transforms (`translate3d`, `rotate`, `perspective(1000px)`).
+1. **Intro** — Three.js gallery tunnel travelled through the "GIREESH" mask
+2. **Hero** — headline, stats, CTAs
+3. **About** — identity, philosophy, velocity marquee
+4. **Journey** — six resume chapters (2021–2026) inside a light-cable tunnel
+5. **Design Stack** — tool spiral
+6. **Work** — 14 selected projects on a perspective card arc, each with a
+   case-study route at `/work/[slug]`
+7. **Experience** — seven roles as a stacked panel deck
+8. **Credentials** — certification records with issuer marks, right-to-centre deck
+9. **Gallery** — *The People Behind the Work*: 14 photographs on a drifting wall
+10. **Connect** — contact, socials, footer
 
-### 3. 🎨 Cyberpunk Glassmorphism UI/UX Design System
-- Built with **React 18, TypeScript, and Tailwind CSS**.
-- **Color Theme Switcher**: 4 cyber themes (Cyan Cyber, Neon Violet, Emerald Matrix, Solar Amber).
-- **Sound FX Engine**: Built-in browser-synthesized audio using the **Web Audio API** (zero audio file downloads; plays futuristic clicks, hover bips, scatter sweeps, assemble tones, and success arpeggios).
-- **Custom Cursor**: Precision follower with hover expansion and trailing ring.
-- **Telemetry HUD**: Real-time Z-depth scroll percentage tracker and warp-to-top shortcut.
+## Scroll architecture
 
-### 4. 💻 Built-in Interactive Terminal Emulator
-- Floating hacker terminal with command parser:
-  - `help` — List all available commands
-  - `neofetch` — Display ASCII art system specifications and developer profile
-  - `skills` — Output technical proficiencies
-  - `projects` — List featured projects with repository links
-  - `repo <name>` — Open project GitHub repo directly in a new tab
-  - `scatter` — Trigger 3D quantum scatter mode
-  - `matrix` — Toggle green cyber rain mode
-  - `theme <color>` — Switch site accent palette dynamically
-  - `contact` — Print verified contact coordinates
-  - `clear` — Clear terminal buffer
+The page is a stack, not a column. Each scene is a sticky `100svh` hold plus a
+runway sibling rendered directly under `<main>` (`components/layout/Scene.tsx`):
+the outgoing frame stays pinned while the next one physically rises from the
+bottom of the viewport and covers it. Scroll-driven interiors read their
+progress off the runway (`lib/scene.ts`) rather than pinning themselves, so
+every transition is scrubbable and reverses exactly.
 
-### 5. 🚀 Verified Projects & Repositories
-- **boardVault** — SaaS knowledge base & benchmarking hub for Single Board Computers (Raspberry Pi, Orange Pi) and Microcontrollers (ESP32, STM32).
-  - Repo: [github.com/Aman-kumar2006/boardVault](https://github.com/Aman-kumar2006/boardVault)
-- **foodloop.ai** — AI-assisted food spoilage forecasting and surplus food redistribution platform.
-  - Repo: [github.com/Aman-kumar2006/foodloop.ai](https://github.com/Aman-kumar2006/foodloop.ai)
-- **SolFinder-Research** — Corporate technology portal and research management suite.
-  - Repo: [github.com/Aman-kumar2006/SolFinder-Research](https://github.com/Aman-kumar2006/SolFinder-Research)
-- **FoodFest** — Interactive culinary festival and gourmet showcase platform.
-  - Repo: [github.com/Aman-kumar2006/FoodFest](https://github.com/Aman-kumar2006/FoodFest)
-- **Kali Linux & Termux Suite** — Shell automation pipelines, Python CLI utilities, and developer diagnostics.
-  - Repo: [github.com/Aman-kumar2006](https://github.com/Aman-kumar2006)
+## Structure
 
----
-
-## 🛠️ Tech Stack
-
-- **Frontend:** React 18, TypeScript, Tailwind CSS, Lucide Icons
-- **3D & Graphics:** Three.js, WebGL, Additive Blending Shaders, BufferGeometry
-- **Audio:** Web Audio API (Frequency Sweeps, Oscillator Nodes)
-- **Special Effects:** Canvas Confetti, CSS 3D Transforms, Glassmorphism
-- **Bundler:** Vite 6 (Manual chunk splitting for Three.js, React, and UI)
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js (v18+)
-- pnpm (recommended) or npm
-
-### Installation & Local Run
-```bash
-# 1. Install dependencies
-pnpm install
-
-# 2. Start local development server
-pnpm dev
-
-# 3. Build for production
-pnpm run build
-
-# 4. Preview production build
-pnpm run preview
+```
+app/            layout, the scene stack (page.tsx), /work/[slug] case studies,
+                sitemap, robots, 404, /tunnel lab route
+components/
+  layout/       Nav, Scene, LanguageToggle, SmoothScroll
+  sections/     one folder per scene (component + module.css)
+  ui/           Button (the site-wide CTA standard), VelocityMarquee
+content/        typed content: projects, journey, experience, certifications,
+                gallery, stack
+lib/            gsap/lenis integration, i18n store, scene scrub helper, site meta
+public/images/  covers, gallery photographs, issuer + company marks
 ```
 
----
+## Running it
 
-## 📦 Deployment
+```bash
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # production build (all routes statically generated)
+```
 
-### Deploy to Netlify
-1. Push your repository to GitHub: `git push -u origin main`
-2. Connect your GitHub account to [Netlify](https://app.netlify.com)
-3. Set build command: `pnpm run build`
-4. Set publish directory: `dist`
+Set `NEXT_PUBLIC_SITE_URL` once a domain exists — sitemap, robots, OG and
+JSON-LD follow automatically (`lib/site.ts`).
 
-### Deploy to Vercel
-1. Connect your repository on [Vercel](https://vercel.com)
-2. Framework Preset: **Vite**
-3. Build Command: `pnpm run build`
-4. Output Directory: `dist`
+## Conventions
 
----
-
-## 📬 Contact
-
-- **Name:** Aman Kumar
-- **GitHub:** [@2006-Aman](https://github.com/2006-Aman) / [@Aman-kumar2006](https://github.com/Aman-kumar2006)
-- **Email:** [amankumar.kumar2006@gmail.com](mailto:amankumar.kumar2006@gmail.com)
-- **Degree:** B.Tech Computer Science & Engineering
+- Every motion path checks `prefers-reduced-motion` and ships a readable
+  static fallback; content is never gated behind an animation.
+- Only `transform` / `opacity` are animated; interiors run scroll → target →
+  interpolation, never raw scroll binding.
+- Photographs and brand marks render at their true aspect ratios — cropped by
+  `object-fit` when needed, never stretched, never dimmed.
+- Proper nouns (companies, products, tools, places) are never translated.
