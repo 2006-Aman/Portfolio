@@ -39,10 +39,10 @@ const MARQUEE_ROWS = [
 ];
 
 const METRICS = [
-  { value: "30+", count: 30, suffix: "+", key: "about.m1" },
-  { value: "6+", count: 6, suffix: "+", key: "about.m2" },
-  { value: "50+", count: 50, suffix: "+", key: "about.m3" },
-  { value: "98%+", count: null, key: "about.m4" },
+  { value: "15", count: 15, key: "about.m1" },
+  { value: "5", count: 5, key: "about.m2" },
+  { value: "9", count: 9, key: "about.m3" },
+  { value: "6", count: 6, key: "about.m4" },
 ];
 
 export default function About() {

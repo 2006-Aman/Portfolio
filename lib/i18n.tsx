@@ -53,9 +53,9 @@ export const DICT: Record<string, Entry> = {
   "hero.cta2": { en: "Explore Stack", fr: "Explorer la stack" },
   "hero.scroll": { en: "Scroll to Explore", fr: "Faites défiler" },
   "stat.projects": { en: "Repositories on GitHub", fr: "Dépôts sur GitHub" },
-  "stat.years": { en: "Core Projects Built", fr: "Projets majeurs réalisés" },
-  "stat.countries": { en: "AI & ML Models", fr: "Modèles d'IA & ML" },
-  "stat.satisfaction": { en: "Code Quality & Reliability", fr: "Qualité & fiabilité du code" },
+  "stat.years": { en: "Web & Full-Stack Systems", fr: "Systèmes web & full-stack" },
+  "stat.countries": { en: "AI & ML Repositories", fr: "Dépôts d'IA & ML" },
+  "stat.satisfaction": { en: "Pinned Repositories", fr: "Dépôts épinglés" },
 
   /* ---------------- about ---------------- */
   "about.eyebrow": { en: "About", fr: "À propos" },
@@ -64,20 +64,20 @@ export const DICT: Record<string, Entry> = {
   "about.h2Em": { en: "lead", fr: "guider" },
   "about.h2c": { en: "it.", fr: "." },
   "about.m1": {
-    en: "Public Repositories authored & maintained on GitHub",
-    fr: "Dépôts publics créés et maintenus sur GitHub",
+    en: "Public repositories on GitHub @2006-Aman",
+    fr: "Dépôts publics sur GitHub @2006-Aman",
   },
   "about.m2": {
-    en: "AI & Machine Learning models and RAG pipelines built",
-    fr: "Modèles d'IA, Machine Learning et pipelines RAG développés",
+    en: "AI & Machine Learning repositories built",
+    fr: "Dépôts d'IA et de Machine Learning développés",
   },
   "about.m3": {
-    en: "Single Board Computers & MCUs cataloged in boardVault",
-    fr: "Cartes SBC et microcontrôleurs répertoriés dans boardVault",
+    en: "Web applications & full-stack systems",
+    fr: "Applications web & systèmes full-stack",
   },
   "about.m4": {
-    en: "Model precision & classification accuracy achieved",
-    fr: "Précision et performance des modèles d'évaluation",
+    en: "Pinned & featured repositories",
+    fr: "Dépôts épinglés et mis en avant",
   },
   "about.edu": {
     en: "AI & ML Student · B.Tech in Computer Science & Engineering · India · Passionate about building intelligent solutions using Machine Learning & Generative AI",
