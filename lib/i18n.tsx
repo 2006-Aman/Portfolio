@@ -38,24 +38,24 @@ export const DICT: Record<string, Entry> = {
 
   /* ---------------- hero ---------------- */
   "hero.kicker": {
-    en: "AI & Machine Learning · Full Stack Web Developer",
-    fr: "Intelligence Artificielle, ML & Développeur Full Stack",
+    en: "AI & ML Specialist · Full Stack Developer",
+    fr: "Spécialiste IA & ML · Développeur Full Stack",
   },
-  "hero.h1a": { en: "Intelligent solutions that", fr: "Des solutions intelligentes qui" },
+  "hero.h1a": { en: "Intelligent systems that", fr: "Des systèmes intelligents qui" },
   "hero.h1aEm": { en: "solve.", fr: "résolvent." },
-  "hero.h1b": { en: "Architectures that", fr: "Des architectures qui" },
-  "hero.h1bEm": { en: "scale.", fr: "tiennent la charge." },
+  "hero.h1b": { en: "Code that", fr: "Du code qui" },
+  "hero.h1bEm": { en: "scales.", fr: "tient la charge." },
   "hero.sub": {
-    en: "AI & ML Student passionate about building intelligent solutions and solving real-world problems using Machine Learning, Generative AI, and modern Full Stack engineering.",
-    fr: "Étudiant en IA & ML passionné par la création de solutions intelligentes et la résolution de problèmes réels grâce au Machine Learning et à l'IA Générative.",
+    en: "B.Tech in CSE (AI & Machine Learning) at Chitkara University. I architect multi-agent AI platforms, contextual RAG pipelines, predictive machine learning models, and high-performance full-stack web applications.",
+    fr: "Étudiant en B.Tech Informatique (IA & ML) à l'Université de Chitkara. Je conçois des systèmes multi-agents, des pipelines RAG et des applications web full-stack.",
   },
   "hero.cta1": { en: "View My Work", fr: "Voir mes projets" },
   "hero.cta2": { en: "Explore Stack", fr: "Explorer la stack" },
   "hero.scroll": { en: "Scroll to Explore", fr: "Faites défiler" },
-  "stat.projects": { en: "Repositories on GitHub", fr: "Dépôts sur GitHub" },
-  "stat.years": { en: "Web & Full-Stack Systems", fr: "Systèmes web & full-stack" },
-  "stat.countries": { en: "AI & ML Repositories", fr: "Dépôts d'IA & ML" },
-  "stat.satisfaction": { en: "Pinned Repositories", fr: "Dépôts épinglés" },
+  "stat.projects": { en: "Production Projects Built", fr: "Projets majeurs réalisés" },
+  "stat.years": { en: "DSA Problems Solved", fr: "Problèmes DSA résolus" },
+  "stat.countries": { en: "Collaborative AI Agents", fr: "Agents IA collaboratifs" },
+  "stat.satisfaction": { en: "Academic CGPA", fr: "Moyenne académique" },
 
   /* ---------------- about ---------------- */
   "about.eyebrow": { en: "About", fr: "À propos" },
@@ -64,24 +64,24 @@ export const DICT: Record<string, Entry> = {
   "about.h2Em": { en: "lead", fr: "guider" },
   "about.h2c": { en: "it.", fr: "." },
   "about.m1": {
-    en: "Public repositories on GitHub @2006-Aman",
-    fr: "Dépôts publics sur GitHub @2006-Aman",
+    en: "Academic CGPA in B.Tech CSE (AI & ML) at Chitkara University",
+    fr: "Moyenne académique en B.Tech Informatique (IA & ML) à Chitkara",
   },
   "about.m2": {
-    en: "AI & Machine Learning repositories built",
-    fr: "Dépôts d'IA et de Machine Learning développés",
+    en: "DSA Problems Solved across LeetCode, CodeChef & GeeksforGeeks",
+    fr: "Problèmes d'algorithmes résolus sur LeetCode, CodeChef & GFG",
   },
   "about.m3": {
-    en: "Web applications & full-stack systems",
-    fr: "Applications web & systèmes full-stack",
+    en: "Smart India Hackathon (SIH) — Cleared First Two Rounds",
+    fr: "Smart India Hackathon (SIH) — Deux premiers tours validés",
   },
   "about.m4": {
-    en: "Pinned & featured repositories",
-    fr: "Dépôts épinglés et mis en avant",
+    en: "Active Participant in IEEE EPICS Community Technology Projects",
+    fr: "Participant actif aux projets technologiques IEEE EPICS",
   },
   "about.edu": {
-    en: "AI & ML Student · B.Tech in Computer Science & Engineering · India · Passionate about building intelligent solutions using Machine Learning & Generative AI",
-    fr: "Étudiant IA & ML · B.Tech Informatique · Inde · Passionné par les solutions intelligentes et l'IA Générative",
+    en: "B.Tech in Computer Science & Engineering (Specialization in AI & ML) · Chitkara University, Punjab · Aug 2024 – June 2028 · CGPA: 8.53",
+    fr: "B.Tech Informatique (Spécialisation IA & ML) · Université de Chitkara, Punjab · 2024–2028 · CGPA : 8,53",
   },
   "about.cta": { en: "Explore My Work", fr: "Découvrir mes projets" },
 
@@ -91,8 +91,8 @@ export const DICT: Record<string, Entry> = {
   "journey.enter": { en: "Scroll to travel", fr: "Faites défiler pour avancer" },
   "journey.chapter": { en: "Chapter", fr: "Chapitre" },
   "journey.lede": {
-    en: "From low-level terminal roots and C programming to modern full-stack systems and 3D web engineering.",
-    fr: "Des racines du terminal et du C aux architectures full-stack modernes et au web 3D.",
+    en: "From algorithmic problem solving and high-speed web backends to enterprise RAG pipelines and multi-agent AI architectures.",
+    fr: "De la résolution algorithmique et des backends haute performance aux pipelines RAG et architectures multi-agents.",
   },
 
   /* ---------------- design stack ---------------- */
@@ -108,75 +108,15 @@ export const DICT: Record<string, Entry> = {
 
   /* ---------------- work ---------------- */
   "work.eyebrow": { en: "Featured Work", fr: "Projets sélectionnés" },
-  "work.h2a": { en: "Selected repositories,", fr: "Dépôts sélectionnés," },
-  "work.h2b": { en: "engineered to", fr: "conçus pour" },
-  "work.h2Em": { en: "perform.", fr: "performer." },
+  "work.h2a": { en: "Selected projects,", fr: "Des projets choisis," },
+  "work.h2b": { en: "designed to", fr: "conçus pour être" },
+  "work.h2Em": { en: "ship.", fr: "livrés." },
   "work.lede": {
-    en: "Predictive ML models, contextual RAG pipelines, embedded hardware SaaS, and high-performance developer tools — all open on GitHub @2006-Aman.",
-    fr: "Modèles de ML prédictif, pipelines RAG, SaaS matériel embarqué et outils de développement — tous ouverts sur GitHub @2006-Aman.",
+    en: "Product UX, product strategy, data design and systems design — each project a different capability, all one practice.",
+    fr: "UX produit, stratégie produit, design de données et de systèmes — chaque projet une compétence différente, une seule pratique.",
   },
   "work.open": { en: "Open case study", fr: "Voir l’étude de cas" },
   "work.hint": { en: "SCROLL TO BROWSE", fr: "FAITES DÉFILER" },
-
-  /* ---------------- experience ---------------- */
-  "exp.eyebrow": { en: "Experience", fr: "Expérience" },
-  "exp.h2": { en: "Where I engineered my", fr: "Là où j’ai forgé mon" },
-  "exp.h2Em": { en: "craft.", fr: "expertise." },
-  "exp.worked": { en: "What I worked on", fr: "Ce sur quoi j’ai travaillé" },
-  "exp.impact": { en: "Impact", fr: "Impact" },
-  "exp.tools": { en: "Tools & skills", fr: "Outils & compétences" },
-  "exp.hint": { en: "SCROLL · CLICK TO JUMP", fr: "DÉFILER · CLIQUER POUR NAVIGUER" },
-  "type.Internship": { en: "Internship", fr: "Stage" },
-  "type.Full-time": { en: "Full-time", fr: "Temps plein" },
-  "type.Hackathon": { en: "Hackathon", fr: "Hackathon" },
-  "type.Freelance": { en: "Freelance", fr: "Freelance" },
-
-  /* ---------------- credentials ---------------- */
-  "cert.introLabel": { en: "Introduction", fr: "Introduction" },
-  "cert.introTitle1": { en: "VERIFIED", fr: "TITRES" },
-  "cert.introTitle2": { en: "CREDENTIALS", fr: "VÉRIFIÉS" },
-  "cert.introBody": {
-    en: "Continuous, applied learning across data, design, marketing and AI — the technical base underneath the product work.",
-    fr: "Un apprentissage continu et appliqué en données, design, marketing et IA — la base technique du travail produit.",
-  },
-  "cert.introNote": {
-    en: "Five programmes · Coursera, LinkedIn Learning and hands-on portfolio projects.",
-    fr: "Cinq programmes · Coursera, LinkedIn Learning et projets concrets.",
-  },
-  "cert.eyebrow": { en: "Credentials", fr: "Titres & certifications" },
-  "cert.h2": { en: "Credentials", fr: "Certifications" },
-  "cert.lede": {
-    en: "Professional certifications and credentials earned throughout my design and technology journey.",
-    fr: "Les certifications et titres professionnels obtenus tout au long de mon parcours en design et en technologie.",
-  },
-  "cert.certified": { en: "Certified", fr: "Certifié" },
-  "cert.brandRole": { en: "Product Designer", fr: "Product Designer" },
-  "cert.issuerTBC": { en: "Issuer — to confirm", fr: "Organisme — à confirmer" },
-  "cert.certification": { en: "Certification", fr: "Certification" },
-  "cert.verified": { en: "✓ Verified", fr: "✓ Vérifié" },
-  "cert.onRequest": { en: "Credential on request", fr: "Justificatif sur demande" },
-  "cert.issuedBy": { en: "Issued by", fr: "Délivré par" },
-  "cert.year": { en: "Year", fr: "Année" },
-  "cert.id": { en: "Credential ID", fr: "N° de justificatif" },
-  "cert.tbc": { en: "To confirm", fr: "À confirmer" },
-  "cert.skills": { en: "Skills", fr: "Compétences" },
-  "cert.verify": { en: "Verify credential ↗", fr: "Vérifier le justificatif ↗" },
-  "cert.foot": { en: "Credentials", fr: "Titres" },
-
-  /* ---------------- gallery — the people behind the work ---------------- */
-  "gallery.eyebrow": { en: "The Archive", fr: "L’archive" },
-  "gallery.h2a": { en: "The people behind", fr: "Celles et ceux derrière" },
-  "gallery.h2Em": { en: "the work", fr: "le travail" },
-  "gallery.lede": {
-    en: "The people, moments and experiences that shaped the work behind the screen.",
-    fr: "Les personnes, les moments et les expériences qui ont façonné le travail derrière l’écran.",
-  },
-  "gallery.alt": {
-    en: "A moment with the people behind the work",
-    fr: "Un moment avec celles et ceux derrière le travail",
-  },
-  "gallery.frames": { en: "Frames", fr: "Images" },
-  "gallery.hint": { en: "Scroll to travel the archive", fr: "Faites défiler pour parcourir l’archive" },
 
   /* ---------------- connect ---------------- */
   "connect.eyebrow": { en: "Let’s Connect", fr: "Restons en contact" },

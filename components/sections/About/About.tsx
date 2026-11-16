@@ -10,39 +10,46 @@ import { useLang } from "@/lib/i18n";
 const MARQUEE_ROWS = [
   {
     items: [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "React",
       "Machine Learning",
-      "Artificial Intelligence",
-      "Generative AI",
+      "Azure OpenAI",
       "RAG Pipelines",
-      "Predictive Analytics",
-      "Deep Learning",
-      "Model Evaluation",
+      "TypeScript",
+      "scikit-learn",
     ],
     velocity: 34,
   },
   {
     items: [
-      "Python",
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Node.js",
-      "Supabase",
+      "TensorFlow",
+      "PyTorch",
+      "MongoDB",
       "PostgreSQL",
-      "MERN Stack",
-      "Flask",
-      "Embedded Systems",
+      "Redis",
+      "Prisma ORM",
+      "Data Structures & Algorithms",
+      "Tailwind CSS",
+      "Docker",
     ],
     velocity: -28,
     outline: true,
   },
 ];
 
-const METRICS = [
-  { value: "15", count: 15, key: "about.m1" },
-  { value: "5", count: 5, key: "about.m2" },
-  { value: "9", count: 9, key: "about.m3" },
-  { value: "6", count: 6, key: "about.m4" },
+const METRICS: {
+  value: string;
+  count: number | null;
+  key: string;
+  prefix?: string;
+  suffix?: string;
+}[] = [
+  { value: "8.53", count: null, key: "about.m1" },
+  { value: "250+", count: 250, suffix: "+", key: "about.m2" },
+  { value: "SIH", count: null, key: "about.m3" },
+  { value: "IEEE", count: null, key: "about.m4" },
 ];
 
 export default function About() {
@@ -130,9 +137,6 @@ export default function About() {
                 {m.count !== null ? (
                   <>
                     {"prefix" in m && m.prefix}
-                    {/* ships the real number: with reduced motion (or no JS)
-                        the count-up never runs, and a hardcoded 0 here left
-                        those users reading "0+" and "$0K+" permanently */}
                     <span data-metric-count={m.count}>{m.count}</span>
                     <i>{m.suffix}</i>
                   </>

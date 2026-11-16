@@ -2,7 +2,7 @@
 
 /*
  * SECTION 01 — THE OPENING. The live Three.js Gallery Tunnel seen through
- * "GIREESH", stretched into a ~5.5-viewport cinematic journey that hands
+ * "AMAN", stretched into a ~5.5-viewport cinematic journey that hands
  * over to the real Hero.
  *
  * Journey design:
@@ -484,7 +484,7 @@ export default function TunnelIntro({ text = "AMAN" }: { text?: string }) {
         ) : (
           <span className={styles.fallback}>{text}</span>
         )}
-        <h1 className={styles.srOnly}>{text} — Product Designer &amp; UX Consultant</h1>
+        <h1 className={styles.srOnly}>{text} — AI/ML Engineer &amp; Full-Stack Developer</h1>
 
         <p className={styles.hint} aria-hidden="true">
           {t("intro.scroll")}

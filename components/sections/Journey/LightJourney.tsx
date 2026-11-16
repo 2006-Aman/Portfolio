@@ -413,9 +413,9 @@ export default function LightJourney() {
                 <p className={styles.introHint}>{t("journey.enter")}</p>
               </div>
 
-              {CHAPTERS.map((c) => (
+              {CHAPTERS.map((c, i) => (
                 <article className={styles.chapter} key={c.id}>
-                  <span className={styles.chYear}>{c.year}</span>
+                  <span className={styles.chYear}>{c.step || String(i + 1).padStart(2, "0")}</span>
                   <h3 className={styles.chTitle}>{L(lang, c, "title")}</h3>
                   <p className={styles.chPlace}>{L(lang, c, "place")}</p>
                   <p className={styles.chStory}>{L(lang, c, "story")}</p>
@@ -451,9 +451,9 @@ export default function LightJourney() {
           <h2>{t("journey.eyebrow")}</h2>
           <p className={styles.staticLede}>{t("journey.lede")}</p>
           <ol>
-            {CHAPTERS.map((c) => (
+            {CHAPTERS.map((c, i) => (
               <li key={c.id}>
-                <span className={styles.staticYear}>{c.year}</span>
+                <span className={styles.staticYear}>{c.step || String(i + 1).padStart(2, "0")}</span>
                 <h3>{L(lang, c, "title")}</h3>
                 <p className={styles.staticPlace}>{L(lang, c, "place")}</p>
                 <p>{L(lang, c, "story")}</p>

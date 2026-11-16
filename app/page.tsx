@@ -6,9 +6,6 @@ import About from "@/components/sections/About/About";
 import Journey from "@/components/sections/Journey/LightJourney";
 import DesignStack from "@/components/sections/Stack/DesignStack";
 import Work from "@/components/sections/Work/Work";
-import Experience from "@/components/sections/Experience/Experience";
-import Certifications from "@/components/sections/Certifications/Certifications";
-import Gallery from "@/components/sections/Gallery/Gallery";
 import Connect from "@/components/sections/Connect/Connect";
 
 /*
@@ -62,19 +59,7 @@ export default function Home() {
           <Work />
         </Scene>
 
-        <Scene order={7} runway={4.4} id="experience">
-          <Experience />
-        </Scene>
-
-        <Scene order={8} runway={3.5} id="credentials">
-          <Certifications />
-        </Scene>
-
-        <Scene order={9} runway={1.6} id="gallery" keepOnMobile>
-          <Gallery />
-        </Scene>
-
-        {/* the closing frame rises over the gallery, then flows to the footer */}
+        {/* the closing frame rises over work, then flows to the footer */}
         <div className="finalFrame">
           <Connect />
         </div>

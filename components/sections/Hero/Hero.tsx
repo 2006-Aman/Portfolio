@@ -8,12 +8,12 @@ import styles from "./Hero.module.css";
 import { useLang } from "@/lib/i18n";
 
 const STATS_LEFT = [
-  { n: 15, suffix: "", key: "stat.projects", icon: "/images/icons/projects.png" },
-  { n: 9, suffix: "", key: "stat.years", icon: "/images/icons/years.png" },
+  { n: 250, suffix: "+", key: "stat.years", icon: "/images/icons/projects.png" },
+  { n: 4, suffix: "+", key: "stat.projects", icon: "/images/icons/years.png" },
 ];
 const STATS_RIGHT = [
-  { n: 5, suffix: "", key: "stat.countries", icon: "/images/icons/countries.png" },
-  { n: 6, suffix: "", key: "stat.satisfaction", icon: "/images/icons/satisfaction.png" },
+  { n: 6, suffix: "", key: "stat.countries", icon: "/images/icons/countries.png" },
+  { n: 8, suffix: ".5", key: "stat.satisfaction", icon: "/images/icons/satisfaction.png" },
 ];
 
 /* ambient particles — position (vw/vh %), size px, tone */
@@ -221,10 +221,10 @@ export default function Hero() {
 
           <Image
             className={styles.portrait}
-            src="/images/portrait.png"
-            alt="Aman Kumar — AI & ML Engineer"
-            width={554}
-            height={573}
+            src="/images/aman-portrait.png"
+            alt="Aman Mangla — AI & ML Specialist · Full Stack Developer"
+            width={987}
+            height={1024}
             priority
             data-depth="0.03"
           />

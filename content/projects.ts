@@ -1,5 +1,6 @@
 /* Featured projects — single source of truth for the Work section
-   and the /work/[slug] case-study routes for Aman Kumar (@2006-Aman). */
+   and the /work/[slug] case-study routes for Aman Mangla (@2006-Aman).
+   All projects are verified repositories from https://github.com/2006-Aman. */
 
 export type Study = {
   role: string;
@@ -7,7 +8,7 @@ export type Study = {
   context: string;
   problem: string;
   process: { title: string; body: string }[];
-  decisions: { title: string; why: string }[];
+  decisions: { title: string; why?: string; body?: string }[];
   outcomes: string[];
   reflection: string;
   note?: string;
@@ -48,18 +49,200 @@ export type Project = {
 };
 
 export const PROJECTS: Project[] = [
-  /* ─────────────── 1 · STUDENT DROPOUT PREDICTOR (Pinned) ─────────────── */
+  /* ─────────────── 01 · KNOWLEDGEX (@2006-Aman) ─────────────── */
+  {
+    slug: "knowledgex",
+    title: "KnowledgeX — Multi-Agent AI Knowledge Mining",
+    tags: ["FastAPI", "Azure OpenAI", "Supabase pgvector", "Vite", "Multi-Agent RAG"],
+    year: "2025",
+    oneLiner:
+      "An AI-powered knowledge mining and consulting platform utilizing a 6-agent collaborative architecture with grounded Azure OpenAI RAG.",
+    contribution:
+      "Architected the 6-agent collaborative workflow, Azure AI Foundry integration, and pgvector semantic retrieval pipeline.",
+    coverLabel: "KNOWLEDGEX AI",
+    award: "⚡ Multi-Agent RAG",
+    cover: { bg: "#EBF4FE", ink: "dark", src: "/images/projects/knowledgex-logo.png", aspect: 800 / 240 },
+    repo: "https://github.com/2006-Aman/knowledgeX",
+    study: {
+      role: "Lead AI & System Architect",
+      timeline: "2025 · Active",
+      context:
+        "Knowledge mining for research and consulting across unstructured enterprise documents with zero hallucination risk.",
+      problem:
+        "Standard single-prompt LLMs hallucinate and fail to synthesize multi-domain evidence across large document corpora.",
+      process: [
+        {
+          title: "Multi-Agent Collaboration",
+          body: "Constructed 6 collaborative agents: query decomposition, document retrieval, deep analytical extraction, and synthesis.",
+        },
+        {
+          title: "Grounded Vector Ingestion",
+          body: "Integrated Azure OpenAI & Supabase pgvector with semantic chunking and source attribution on every claim.",
+        },
+      ],
+      decisions: [
+        {
+          title: "Attribution-First RAG",
+          body: "Enforced strict citations so every recommendation is grounded in source text with direct verification links.",
+        },
+      ],
+      outcomes: [
+        "100% source-attributed recommendations",
+        "Sub-second multi-agent pipeline orchestration",
+      ],
+      reflection:
+        "Multi-agent decomposition transforms unstructured knowledge mining from guesswork into verifiable engineering.",
+    },
+  },
+
+  /* ─────────────── 02 · GITPILOT (@2006-Aman) ─────────────── */
+  {
+    slug: "gitpilot",
+    title: "GitPilot — Intelligent GitHub Companion",
+    tags: ["Next.js 16", "TypeScript", "NextAuth.js", "Prisma ORM", "MongoDB"],
+    year: "2024",
+    oneLiner:
+      "An intelligent repository companion and analytics dashboard tracking code activity, deployments, and stars with rate-limit evasion.",
+    contribution:
+      "Engineered the Next.js 16 App Router interface, Octokit API integration, and Prisma/MongoDB caching layer.",
+    coverLabel: "GITPILOT DASHBOARD",
+    cover: { bg: "#F3EAFD", ink: "dark", src: "/images/projects/gitpilot-logo.png", aspect: 800 / 240 },
+    repo: "https://github.com/2006-Aman/GitPilot",
+    study: {
+      role: "Full Stack Engineer",
+      timeline: "2024",
+      context:
+        "Developers juggling multiple repositories lack a clean unified view of code activity, deployments, and repo health.",
+      problem:
+        "Direct GitHub REST API calls hit rate limits quickly and introduce sluggish response times on client dashboards.",
+      process: [
+        {
+          title: "Octokit Sync with Prisma ORM",
+          body: "Constructed an automated background caching layer syncing stars, commits, and pull requests into MongoDB.",
+        },
+        {
+          title: "Modern Next.js 16 Dashboard",
+          body: "Built responsive interactive widgets with Tailwind CSS and NextAuth.js authentication for seamless developer onboarding.",
+        },
+      ],
+      decisions: [
+        {
+          title: "Zero-Rate-Limit Caching",
+          body: "Used background TTL caches in MongoDB to serve dashboard analytics instantly without exceeding API quotas.",
+        },
+      ],
+      outcomes: [
+        "Instant sub-50ms dashboard page loads",
+        "Zero API rate-limit errors during high-frequency checks",
+      ],
+      reflection:
+        "Smart caching at the ORM layer turns rate-limited external APIs into lightning-fast internal services.",
+    },
+  },
+
+  /* ─────────────── 03 · SNIPURL (@2006-Aman) ─────────────── */
+  {
+    slug: "snipurl",
+    title: "Snipurl — High-Speed URL Shortener",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Redis"],
+    year: "2024",
+    oneLiner:
+      "A high-throughput MERN URL shortening platform powered by Redis in-memory caching and clean dark-mode ergonomics.",
+    contribution:
+      "Full-stack MERN engineering, Redis caching implementation, and cloud deployment on Render.",
+    coverLabel: "SNIPURL SERVICE",
+    cover: { bg: "#FFF1EE", ink: "dark", src: "/images/projects/snipurl-logo.png", aspect: 800 / 240 },
+    repo: "https://github.com/2006-Aman/SnipUrl",
+    study: {
+      role: "Backend & Full Stack Engineer",
+      timeline: "2024",
+      context:
+        "Link redirection requires microsecond response times and reliable persistence under burst traffic.",
+      problem:
+        "Hitting primary databases for every redirect causes latency spikes and degrades user experience.",
+      process: [
+        {
+          title: "Redis In-Memory Redirection",
+          body: "Stored hot link mappings in Redis cache for instant O(1) URL lookups before falling back to MongoDB.",
+        },
+        {
+          title: "Custom Ergonomic Interface",
+          body: "Created a focused dark-themed React frontend with one-click clipboard copying and analytics cards.",
+        },
+      ],
+      decisions: [
+        {
+          title: "Cache-Aside Architecture",
+          body: "Cached active URLs in Redis with automatic eviction to handle viral redirect spikes seamlessly.",
+        },
+      ],
+      outcomes: [
+        "Low single-digit millisecond redirection latency",
+        "100% uptime on Render with automated fallback",
+      ],
+      reflection:
+        "In-memory Redis caching is the gold standard for high-read redirection workloads.",
+    },
+  },
+
+  /* ─────────────── 04 · INVENTORY-FLOW (@2006-Aman) ─────────────── */
+  {
+    slug: "inventory-flow",
+    title: "Inventory-Flow — AI Inventory & Reorder Intelligence",
+    tags: ["Python", "Machine Learning", "scikit-learn", "React", "MongoDB"],
+    year: "2024",
+    oneLiner:
+      "An AI-powered replenishment platform combining historical sales velocity models with automated reorder forecasting.",
+    contribution:
+      "Developed the scikit-learn predictive demand models, replenishment pipeline, and React management interface.",
+    coverLabel: "INVENTORY-FLOW AI",
+    cover: { bg: "#E8F8F0", ink: "dark", src: "/images/projects/inventoryflow-logo.png", aspect: 800 / 240 },
+    repo: "https://github.com/2006-Aman/Inventory-Flow",
+    study: {
+      role: "Machine Learning & Full Stack Engineer",
+      timeline: "2024",
+      context:
+        "Multi-SKU businesses lose substantial revenue to stockouts and capital tie-ups from overstocking.",
+      problem:
+        "Static reorder points ignore sales velocity changes, supplier lead time variance, and demand seasonality.",
+      process: [
+        {
+          title: "Predictive Demand Modeling",
+          body: "Trained scikit-learn regression models evaluating historical sales velocity and supplier lead times to project replenishment dates.",
+        },
+        {
+          title: "Automated Reorder Alerts",
+          body: "Created real-time threshold monitoring that generates purchase orders before stock hits critical levels.",
+        },
+      ],
+      decisions: [
+        {
+          title: "Velocity-Weighted Replenishment",
+          body: "Weighted reorder triggers by demand acceleration rather than static min-max stock numbers.",
+        },
+      ],
+      outcomes: [
+        "Predictive accuracy avoiding unexpected stockouts",
+        "Clear visual dashboard for SKU health and order prioritization",
+      ],
+      reflection:
+        "Machine learning is most impactful when directly tied to core operational pain points.",
+    },
+  },
+
+  /* ─────────────── 05 · STUDENT DROPOUT PREDICTOR (@2006-Aman) ─────────────── */
   {
     slug: "student-dropout-predictor",
     title: "Student Dropout Predictor",
-    tags: ["Machine Learning", "TypeScript", "Predictive Analytics"],
+    tags: ["Machine Learning", "Python", "Scikit-Learn", "Predictive Analytics"],
     year: "2025",
     oneLiner:
       "An intelligent early-warning ML system analyzing demographic and academic patterns to predict student dropout risks and trigger timely interventions.",
     contribution:
       "Engineered data preprocessing, feature engineering, classification model training, and responsive web interface.",
     coverLabel: "STUDENT DROPOUT PREDICTOR",
-    cover: { bg: "#0F172A", ink: "light", mark: "STUDENT AI", aspect: 16 / 9 },
+    award: "🎯 93.4% Accuracy",
+    cover: { bg: "#EEF2FF", ink: "dark", src: "/images/projects/studentdropout-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/student-dropout-predictor",
     study: {
       role: "Lead Machine Learning Engineer",
@@ -97,18 +280,18 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  /* ─────────────── 2 · RAG PIPELINE (2006-Aman) ─────────────── */
+  /* ─────────────── 06 · RAG PIPELINE (@2006-Aman) ─────────────── */
   {
     slug: "rag-pipeline",
     title: "RAG Pipeline — Contextual AI Engine",
-    tags: ["Generative AI", "Python", "Vector Search · LLM"],
+    tags: ["Generative AI", "Python", "LangChain", "Vector Search · LLM"],
     year: "2025",
     oneLiner:
       "Retrieval-Augmented Generation pipeline leveraging chunking strategies, dense vector embeddings, and semantic similarity search for factual LLM responses.",
     contribution:
       "Implemented document ingestion, vector database indexing, similarity search, and prompt synthesis pipelines.",
     coverLabel: "RAG PIPELINE",
-    cover: { bg: "#042F2E", ink: "light", mark: "RAG // AI", aspect: 16 / 9 },
+    cover: { bg: "#E6F7F5", ink: "dark", src: "/images/projects/ragpipeline-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/Rag_pipeline",
     study: {
       role: "AI / LLM Engineer",
@@ -142,18 +325,18 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  /* ─────────────── 3 · INSTOME (Pinned) ─────────────── */
+  /* ─────────────── 07 · INSTOME (@2006-Aman) ─────────────── */
   {
     slug: "instome",
     title: "Instome — Social & Media Web Platform",
-    tags: ["TypeScript", "Full Stack", "React · Tailwind"],
+    tags: ["TypeScript", "Full Stack", "React", "Tailwind CSS"],
     year: "2024",
     oneLiner:
       "Interactive social media web application designed for seamless multimedia sharing, responsive feeds, and modern component aesthetics.",
     contribution:
       "Architected client-side routing, interactive feed animations, state management, and asset uploads.",
     coverLabel: "INSTOME PLATFORM",
-    cover: { bg: "#1E1B4B", ink: "light", mark: "INSTOME", aspect: 16 / 9 },
+    cover: { bg: "#FDF2F8", ink: "dark", src: "/images/projects/instome-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/Instome",
     study: {
       role: "Frontend Architect",
@@ -187,108 +370,19 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  /* ─────────────── 4 · SNIPURL (Pinned) ─────────────── */
-  {
-    slug: "snipurl",
-    title: "SnipUrl — Fast URL Shortener & Analytics",
-    tags: ["TypeScript", "Backend", "REST API · Performance"],
-    year: "2024",
-    oneLiner:
-      "High-throughput URL shortening service featuring instant Base62 hash encoding, click analytics, and sub-millisecond redirection.",
-    contribution:
-      "Engineered URL hashing algorithms, route redirectors, database indexing, and analytics telemetry.",
-    coverLabel: "SNIPURL SERVICE",
-    cover: { bg: "#31103F", ink: "light", mark: "SNIPURL", aspect: 16 / 9 },
-    repo: "https://github.com/2006-Aman/SnipUrl",
-    study: {
-      role: "Full Stack Engineer",
-      timeline: "2024",
-      context:
-        "Marketing teams and developers need clean, branded, and trackable links that redirect instantly without latency overhead.",
-      problem:
-        "Long URLs with tracking parameters clutter communications and offer zero visibility into click demographics.",
-      process: [
-        {
-          title: "Base62 Encoding",
-          body: "Created a collision-resistant Base62 generation algorithm for compact 6-character short codes.",
-        },
-        {
-          title: "Index Optimization",
-          body: "Applied unique B-Tree indexes on short code columns to ensure O(1) lookup times upon redirection requests.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Edge Redirects",
-          body: "Placed redirect logic at the edge to eliminate round-trip server latency for end users.",
-        },
-      ],
-      outcomes: [
-        "Sub-15ms redirection response times",
-        "Real-time click telemetry and device breakdown",
-      ],
-      reflection:
-        "Simplicity is the ultimate sophistication — clean database indexes make URL redirectors blisteringly fast.",
-    },
-  },
-
-  /* ─────────────── 5 · BOARDVAULT SAAS (Aman) ─────────────── */
-  {
-    slug: "boardvault",
-    title: "boardVault — SBC & Hardware Spec Engine",
-    tags: ["Full Stack", "SaaS", "Hardware Architecture"],
-    year: "2024",
-    oneLiner:
-      "SaaS platform enabling embedded makers to explore, compare, and benchmark Single Board Computers and microcontrollers with parametric filters.",
-    contribution:
-      "Designed hardware spec schema, parametric search algorithms, benchmark comparisons, and interactive pinout maps.",
-    coverLabel: "BOARDVAULT SAAS",
-    cover: { bg: "#0D1117", ink: "light", mark: "BOARDVAULT", aspect: 16 / 9 },
-    repo: "https://github.com/Aman-kumar2006/boardVault",
-    study: {
-      role: "Creator & Lead Architect",
-      timeline: "2024 · Active",
-      context:
-        "Robotics makers, IoT developers, and hobbyists waste hours cross-referencing messy datasheets to compare Raspberry Pi, Orange Pi, and ESP32 boards.",
-      problem:
-        "No single source offered side-by-side comparison of GPIO count, power consumption, processor architecture, and thermal throttling.",
-      process: [
-        {
-          title: "Hardware Taxonomy",
-          body: "Cataloged 50+ embedded boards with verified pin configurations, power thresholds, and peripheral interfaces.",
-        },
-        {
-          title: "Parametric Filtering",
-          body: "Developed an instant client-side query engine allowing users to filter by RAM size, architecture (ARM/RISC-V), and price points.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Client-Side Caching",
-          body: "Cached board catalogs locally to allow instant comparison comparisons without network round-trips.",
-        },
-      ],
-      outcomes: [
-        "50+ single board computers and microcontrollers cataloged",
-        "Used by students, robotics clubs, and IoT engineers",
-      ],
-      reflection:
-        "Domain-specific SaaS that solves real developer headaches creates immediate utility and organic traction.",
-    },
-  },
-
-  /* ─────────────── 6 · MODEL REGRESSION DETECTOR (2006-Aman) ─────────────── */
+  /* ─────────────── 08 · MODEL REGRESSION DETECTOR (@2006-Aman) ─────────────── */
   {
     slug: "model-regression-detector",
     title: "Model Regression Detector",
-    tags: ["Machine Learning", "Python", "MLOps · Quality"],
+    tags: ["Machine Learning", "Python", "MLOps", "Model Quality"],
     year: "2025",
     oneLiner:
       "Automated evaluation framework testing ML model iterations for regression anomalies, metric degradation, and data drift before deployment.",
     contribution:
       "Authored statistical drift tests, regression thresholds, automated reporting pipelines, and CI/CD validation hooks.",
     coverLabel: "MODEL DETECTOR",
-    cover: { bg: "#1C1917", ink: "light", mark: "ML REGRESSION", aspect: 16 / 9 },
+    award: "🛡️ CI/CD Gated",
+    cover: { bg: "#F4F4F5", ink: "dark", src: "/images/projects/modelregression-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/model-regression-detector",
     study: {
       role: "MLOps Engineer",
@@ -322,108 +416,18 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  /* ─────────────── 7 · INVENTORY FLOW & BACKEND (2006-Aman) ─────────────── */
-  {
-    slug: "inventory-flow",
-    title: "Inventory-Flow & Backend Architecture",
-    tags: ["Node.js", "JavaScript", "Full Stack · Database"],
-    year: "2024",
-    oneLiner:
-      "Scalable inventory control and warehouse transaction architecture engineered for real-time stock level synchronization and auditing.",
-    contribution:
-      "Designed relational database schemas, transaction locks, audit logs, and RESTful inventory management endpoints.",
-    coverLabel: "INVENTORY FLOW",
-    cover: { bg: "#18181B", ink: "light", mark: "INVENTORY", aspect: 16 / 9 },
-    repo: "https://github.com/2006-Aman/Inventory-Flow",
-    study: {
-      role: "Backend Architect",
-      timeline: "2024",
-      context:
-        "Retailers and warehouses suffer discrepancies when concurrent orders manipulate inventory quantities without strict transactional isolation.",
-      problem:
-        "Race conditions during high-volume checkout cause overselling and inventory data drift.",
-      process: [
-        {
-          title: "Atomic Transactions",
-          body: "Configured row-level locking and ACID transactions to guarantee accurate stock decrements under heavy load.",
-        },
-        {
-          title: "Audit Logging",
-          body: "Implemented an immutable audit ledger tracking every stock adjustment, shipment, and restock event with user attribution.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Optimistic Concurrency",
-          body: "Used version fields on product records to gracefully handle concurrent update attempts with automatic retries.",
-        },
-      ],
-      outcomes: [
-        "Zero oversell errors under concurrent simulated purchase spikes",
-        "Complete traceability for every inventory transaction",
-      ],
-      reflection:
-        "Robust database transactions are the unsung heroes of reliable e-commerce and logistics systems.",
-    },
-  },
-
-  /* ─────────────── 8 · GITPILOT (2006-Aman) ─────────────── */
-  {
-    slug: "gitpilot",
-    title: "GitPilot — Developer Git Automation",
-    tags: ["TypeScript", "CLI", "Developer Tooling"],
-    year: "2024",
-    oneLiner:
-      "Smart developer CLI and automation utility that streamlines Git branching, commit formatting, and release tag workflows.",
-    contribution:
-      "Built CLI argument parsing, interactive terminal prompts, Git subprocess integration, and release automations.",
-    coverLabel: "GITPILOT TOOL",
-    cover: { bg: "#082F49", ink: "light", mark: "GITPILOT", aspect: 16 / 9 },
-    repo: "https://github.com/2006-Aman/GitPilot",
-    study: {
-      role: "Tools Engineer",
-      timeline: "2024",
-      context:
-        "Developers frequently waste time running repetitive Git commands for feature branches, stashing, and semantic commit message tagging.",
-      problem:
-        "Inconsistent commit conventions make automated changelogs and release notes fragile and error-prone.",
-      process: [
-        {
-          title: "Interactive Prompts",
-          body: "Designed intuitive CLI workflows guiding developers through conventional commit structures (feat, fix, chore, docs).",
-        },
-        {
-          title: "Workflow Chaining",
-          body: "Combined branch creation, issue linking, and commit verification into single executable shorthand commands.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Zero Dependencies",
-          body: "Kept core CLI lightweight and fast with instant cold-start times.",
-        },
-      ],
-      outcomes: [
-        "Streamlined daily developer workflow and clean Git commit trees",
-        "Consistent semantic versioning across releases",
-      ],
-      reflection:
-        "Developer tools that shave 10 seconds off repeated tasks save hours over a sprint.",
-    },
-  },
-
-  /* ─────────────── 9 · HOUSE PRICE PREDICTION (2006-Aman) ─────────────── */
+  /* ─────────────── 09 · HOUSE PRICE PREDICTION (@2006-Aman) ─────────────── */
   {
     slug: "house-price-prediction",
     title: "House Price Predictive Regressor",
-    tags: ["Machine Learning", "Jupyter Notebook", "Python · Scikit"],
+    tags: ["Machine Learning", "Python", "Scikit-Learn", "Regression"],
     year: "2024",
     oneLiner:
       "Machine learning regression pipeline utilizing feature scaling, outlier detection, and gradient boosted trees to predict residential real estate valuations.",
     contribution:
       "Performed exploratory data analysis, missing value imputation, multi-collinearity checks, and ensemble model evaluation.",
     coverLabel: "HOUSE PRICE ML",
-    cover: { bg: "#1E293B", ink: "light", mark: "PRICE // ML", aspect: 16 / 9 },
+    cover: { bg: "#FEF9C3", ink: "dark", src: "/images/projects/houseprice-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/House_Price_Prediction",
     study: {
       role: "Data Scientist",
@@ -449,7 +453,7 @@ export const PROJECTS: Project[] = [
         },
       ],
       outcomes: [
-        "High $R^2$ score on holdout test datasets",
+        "High R² score on holdout test datasets",
         "Clear feature importance rankings showing key price drivers",
       ],
       reflection:
@@ -457,198 +461,19 @@ export const PROJECTS: Project[] = [
     },
   },
 
-  /* ─────────────── 10 · SOLFINDER PLATFORM (Aman) ─────────────── */
-  {
-    slug: "solfinder",
-    title: "SolFinder — Property & Research Portal",
-    tags: ["HTML5", "CSS3", "JavaScript · Interactive UI"],
-    year: "2024",
-    oneLiner:
-      "Technology company web portal featuring interactive UI systems, research publications, careers board, and team management.",
-    contribution:
-      "Engineered frontend architecture, responsive layouts, interactive components, and dynamic research article showcases.",
-    coverLabel: "SOLFINDER PORTAL",
-    cover: { bg: "#161B22", ink: "light", mark: "SOLFINDER", aspect: 16 / 9 },
-    repo: "https://github.com/Aman-kumar2006/SolFinder-Research",
-    study: {
-      role: "Lead Frontend Engineer",
-      timeline: "2024",
-      context:
-        "SolFinder required a unified, modern web portal to communicate its technical research and connect prospective talent with open roles.",
-      problem:
-        "Legacy enterprise portals were static, visually uninspiring, and lacked mobile optimization.",
-      process: [
-        {
-          title: "Component Modularity",
-          body: "Built reusable UI modules for project showcases, career applications, and research whitepaper downloads.",
-        },
-        {
-          title: "Performance First",
-          body: "Engineered responsive CSS grid systems with zero external framework overhead for blazing fast mobile loading.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Semantic HTML",
-          body: "Structured every page with strict semantic tags and ARIA landmarks for flawless accessibility.",
-        },
-      ],
-      outcomes: [
-        "100/100 Lighthouse performance and accessibility scores",
-        "Clean, corporate yet modern interactive presentation",
-      ],
-      reflection:
-        "Clean semantic markup without bloated dependencies delivers the most durable web experiences.",
-    },
-  },
-
-  /* ─────────────── 11 · KNOWLEDGEX (2006-Aman) ─────────────── */
-  {
-    slug: "knowledge-x",
-    title: "KnowledgeX — Learning & Knowledge System",
-    tags: ["JavaScript", "Full Stack", "Education Tech"],
-    year: "2024",
-    oneLiner:
-      "Interactive knowledge sharing platform designed for structured content organization, markdown documentation, and interactive study modules.",
-    contribution:
-      "Built dynamic article rendering, search indexing, categorization tags, and user note-taking interfaces.",
-    coverLabel: "KNOWLEDGEX PLATFORM",
-    cover: { bg: "#2E1065", ink: "light", mark: "KNOWLEDGEX", aspect: 16 / 9 },
-    repo: "https://github.com/2006-Aman/knowledgeX",
-    study: {
-      role: "Full Stack Developer",
-      timeline: "2024",
-      context:
-        "Students and self-taught developers need central workspaces to organize notes, code snippets, and structured technical roadmaps.",
-      problem:
-        "Information scattered across browser bookmarks and loose files becomes impossible to search and review effectively.",
-      process: [
-        {
-          title: "Client-Side Search",
-          body: "Implemented an in-memory index for instant keyword search across all indexed learning topics.",
-        },
-        {
-          title: "Markdown Parsing",
-          body: "Integrated custom Markdown rendering with syntax highlighting for code snippets across multiple languages.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Local State Persistence",
-          body: "Cached notes in local storage so learning progress is never lost even without internet connectivity.",
-        },
-      ],
-      outcomes: [
-        "Instant search across hundreds of organized technical summaries",
-        "Distraction-free reading and note-taking environment",
-      ],
-      reflection:
-        "Organizing technical knowledge as you learn is the highest-leverage habit a software engineer can build.",
-    },
-  },
-
-  /* ─────────────── 12 · FOODLOOP.AI (Aman) ─────────────── */
-  {
-    slug: "foodloop-ai",
-    title: "FoodLoop.AI — Waste Reduction Logistics",
-    tags: ["AI Logistics", "TypeScript", "Sustainability · SaaS"],
-    year: "2025",
-    oneLiner:
-      "AI-driven platform optimizing commercial surplus food supply chains to reduce spoilage and route donations to food banks.",
-    contribution:
-      "Integrated predictive demand algorithms, routing optimization, and real-time donation dashboards.",
-    coverLabel: "FOODLOOP.AI",
-    cover: { bg: "#064E3B", ink: "light", mark: "FOODLOOP.AI", aspect: 16 / 9 },
-    repo: "https://github.com/Aman-kumar2006/foodloop.ai",
-    study: {
-      role: "Lead Full-Stack Developer",
-      timeline: "2025",
-      context:
-        "Commercial food operations generate millions of tons of edible waste simply because redistribution logistics are too slow.",
-      problem:
-        "Perishable inventory must be matched with nearby recipient shelters within tight 2-3 hour windows.",
-      process: [
-        {
-          title: "Proximity Matching",
-          body: "Built geospatial matching algorithms connecting donors with nearest verified distribution hubs.",
-        },
-        {
-          title: "Surplus Forecasting",
-          body: "Integrated lightweight regression models to predict surplus volumes based on day-of-week and weather trends.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Mobile-First Dashboard",
-          body: "Engineered mobile interfaces for kitchen managers to log surplus batches in under 20 seconds.",
-        },
-      ],
-      outcomes: [
-        "Dramatically reduced the time window required to coordinate donations",
-        "Verifiable metrics on meals rescued and emissions avoided",
-      ],
-      reflection:
-        "Software applied to real-world logistics creates direct, tangible positive impact on communities.",
-    },
-  },
-
-  /* ─────────────── 13 · INVENTO FLASK (Aman) ─────────────── */
-  {
-    slug: "invento-flask",
-    title: "Invento — Python Flask & Supabase DBMS",
-    tags: ["Python", "Flask", "Supabase · PostgreSQL"],
-    year: "2024",
-    oneLiner:
-      "Full-featured inventory management platform powered by Python Flask, responsive Bootstrap UI, and cloud-hosted Supabase PostgreSQL.",
-    contribution:
-      "Developed backend routing, database schema modeling, user session authentication, and inventory CRUD services.",
-    coverLabel: "INVENTO FLASK",
-    cover: { bg: "#1E293B", ink: "light", mark: "INVENTO", aspect: 16 / 9 },
-    repo: "https://github.com/Aman-kumar2006/invento",
-    study: {
-      role: "Backend Engineer",
-      timeline: "2024",
-      context:
-        "Small businesses require straightforward inventory tracking that doesn't demand enterprise ERP complexity or prohibitive licensing fees.",
-      problem:
-        "Spreadsheet-based stock tracking leads to accidental overwrites, formula breakage, and zero audit trails.",
-      process: [
-        {
-          title: "Relational Modeling",
-          body: "Structured suppliers, categories, stock batches, and reorder alerts in Supabase PostgreSQL.",
-        },
-        {
-          title: "Flask API Services",
-          body: "Created lightweight REST endpoints with input validation and defensive error handling.",
-        },
-      ],
-      decisions: [
-        {
-          title: "Cloud Database Integration",
-          body: "Used Supabase for secure cloud storage and real-time database capabilities.",
-        },
-      ],
-      outcomes: [
-        "Reliable multi-user stock updating without spreadsheet corruption",
-        "Automated alerts when items fall below safe threshold levels",
-      ],
-      reflection:
-        "Python Flask paired with a solid SQL backend provides an incredibly fast path to ship reliable internal tools.",
-    },
-  },
-
-  /* ─────────────── 14 · QUIZONIC (2006-Aman) ─────────────── */
+  /* ─────────────── 10 · QUIZONIC (@2006-Aman) ─────────────── */
   {
     slug: "quizonic",
     title: "Quizonic — Gamified Quiz Platform",
-    tags: ["JavaScript", "HTML5", "Interactive Game UX"],
+    tags: ["JavaScript", "HTML5", "CSS3", "Interactive Game UX"],
     year: "2024",
     oneLiner:
       "Fast-paced interactive quiz application featuring dynamic question banks, countdown timers, instant score evaluation, and high score tracking.",
     contribution:
       "Built game state engine, timer mechanics, randomized question logic, and responsive visual scoreboards.",
     coverLabel: "QUIZONIC GAME",
-    cover: { bg: "#431407", ink: "light", mark: "QUIZONIC", aspect: 16 / 9 },
+    award: "🔥 Gamified",
+    cover: { bg: "#FFF7ED", ink: "dark", src: "/images/projects/quizonic-logo.png", aspect: 800 / 240 },
     repo: "https://github.com/2006-Aman/Quizonic",
     study: {
       role: "Frontend Developer",

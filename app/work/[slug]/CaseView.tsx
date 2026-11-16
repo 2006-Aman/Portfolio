@@ -37,7 +37,7 @@ export default function CaseView({ slug }: { slug: string }) {
             page — a shared case-study link is often a visitor's first screen */}
         <div className={styles.barRight}>
           <Link href="/" className={styles.logo}>
-            GIREESH<i>.</i>
+            AMAN<i>.</i>
           </Link>
           <LanguageToggle />
         </div>
@@ -170,7 +170,7 @@ export default function CaseView({ slug }: { slug: string }) {
             {study.decisions.map((d, i) => (
               <div className={styles.decision} key={i}>
                 <h3>{d.title}</h3>
-                <p>{d.why}</p>
+                <p>{d.why || d.body}</p>
               </div>
             ))}
           </div>

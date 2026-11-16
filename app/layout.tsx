@@ -24,26 +24,26 @@ const caveat = Caveat({
 });
 
 const DESCRIPTION =
-  "Aman Kumar (@2006-Aman) — Full Stack Developer & Computer Science Engineer building 3D interactive web experiences, AI integrations, SaaS architectures, and high-performance digital products.";
+  "Aman Mangla — AI & ML Specialist and Full Stack Developer at Chitkara University building multi-agent AI systems, contextual RAG pipelines, and high-performance digital platforms.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Aman Kumar — Full Stack Developer",
-    template: "%s | Aman Kumar",
+    default: "Aman Mangla — AI & ML Specialist · Full Stack Developer",
+    template: "%s | Aman Mangla",
   },
   description: DESCRIPTION,
   openGraph: {
-    title: "Aman Kumar — Full Stack Developer",
+    title: "Aman Mangla — AI & ML Specialist · Full Stack Developer",
     description: DESCRIPTION,
     url: SITE_URL,
-    siteName: "Aman Kumar — Portfolio",
+    siteName: "Aman Mangla — Portfolio",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aman Kumar — Full Stack Developer",
+    title: "Aman Mangla — AI & ML Specialist · Full Stack Developer",
     description: DESCRIPTION,
   },
 };

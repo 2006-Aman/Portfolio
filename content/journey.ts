@@ -1,8 +1,9 @@
-/* THE JOURNEY — the chapters the light tunnel travels through. */
+/* THE JOURNEY — the chapters the light tunnel travels through for Aman Mangla.
+   No years displayed, focusing purely on architectural milestones and real projects. */
 
 export type Chapter = {
   id: string;
-  year: string;
+  step?: string;
   title: string;
   place: string;
   story: string;
@@ -12,99 +13,99 @@ export type Chapter = {
 
 export const CHAPTERS: Chapter[] = [
   {
-    id: "roots",
-    year: "2021",
-    title: "Origins: The Terminal & C Roots",
-    place: "India",
+    id: "algorithms-dsa",
+    step: "01",
+    title: "Algorithms, Data Structures & Core CS",
+    place: "Chitkara University",
     story:
-      "Where the journey kicked off. Exploring low-level C programming, memory allocation, Linux system internals, and turning an Android device into a mobile dev rig with Termux.",
-    bridge: "Low-level system mechanics formed the foundation for everything that followed.",
+      "Mastered computer science foundations, algorithm design, and system principles. Solved 250+ algorithmic challenges across LeetCode, CodeChef, and GeeksforGeeks, developing rigorous problem-solving intuition and code optimization skills.",
+    bridge: "Algorithmic thinking laid the bedrock for architecting scalable software systems.",
     fr: {
-      title: "Origines : Le Terminal et le C",
-      place: "Inde",
+      title: "Algorithmes, Structures de Données & Fondations",
+      place: "Université de Chitkara",
       story:
-        "Là où l’histoire commence. Apprentissage du C, allocation mémoire, systèmes Linux et environnement mobile avec Termux.",
-      bridge: "Les mécanismes bas niveau ont forgé les fondations de tout le reste.",
+        "Maîtrise des fondements informatiques et conception algorithmique. Plus de 250 défis résolus sur LeetCode, CodeChef et GFG.",
+      bridge: "La rigueur algorithmique a forgé les bases de systèmes scalables.",
     },
   },
   {
-    id: "web-foundations",
-    year: "2022",
-    title: "Entering Web & JavaScript Ecosystems",
-    place: "India",
+    id: "snipurl-caching",
+    step: "02",
+    title: "High-Speed Web Systems & Redis Caching",
+    place: "Full Stack Lab",
     story:
-      "Diving into modern web engineering: mastering JavaScript, component lifecycles in React, CSS architecture, and building responsive client-side applications.",
-    bridge: "Moving from command-line scripts to interactive visual interfaces.",
+      "Engineered Snipurl, a full-stack URL shortening service utilizing the MERN stack (MongoDB, Express, React, Node.js) paired with Redis in-memory caching to achieve ultra-low-latency redirection with sleek dark-mode UX.",
+    bridge: "Bridging fast database caching with responsive client-side architectures.",
     fr: {
-      title: "Découverte de l’Écosystème Web",
-      place: "Inde",
+      title: "Systèmes Web Rapides & Cache Redis",
+      place: "Laboratoire Full Stack",
       story:
-        "Plongée dans le web moderne : JavaScript, React, interfaces interactives et architecture CSS.",
-      bridge: "Passage des scripts en ligne de commande aux interfaces visuelles interactives.",
+        "Conception de Snipurl avec la stack MERN et cache Redis en mémoire pour des redirections ultra-rapides.",
+      bridge: "Associer des caches mémoire performants à des interfaces modernes.",
     },
   },
   {
-    id: "fullstack",
-    year: "2023",
-    title: "Full Stack Architectures & Cloud Backends",
-    place: "India",
+    id: "gitpilot-analytics",
+    step: "03",
+    title: "Intelligent GitHub Repository Companion",
+    place: "Production Systems",
     story:
-      "Scaling backend systems with Node.js, Express, MongoDB, and PostgreSQL. Engineering secure REST APIs, authentication flows, and real-time state synchronization.",
-    bridge: "Connecting databases, APIs, and client interfaces into unified platforms.",
+      "Built GitPilot with Next.js 16 (App Router), TypeScript, Prisma ORM, and MongoDB. Integrated Octokit GitHub REST APIs with caching to track real-time repository health, stars, forks, and code analytics without rate limits.",
+    bridge: "Building developer-first tools that eliminate friction and boost velocity.",
     fr: {
-      title: "Architectures Full Stack & Cloud",
-      place: "Inde",
+      title: "Compagnon Intelligent de Dépôts GitHub",
+      place: "Systèmes de Production",
       story:
-        "Développement backend avec Node.js, Express, bases de données SQL/NoSQL et conception d'APIs REST sécurisées.",
-      bridge: "Connexion fluide entre bases de données, APIs et interfaces réactives.",
+        "Développement de GitPilot avec Next.js 16, TypeScript, Prisma et MongoDB. Intégration de l'API Octokit pour analyser la santé des dépôts.",
+      bridge: "Concevoir des outils pensés pour les développeurs.",
     },
   },
   {
-    id: "hardware-boardvault",
-    year: "2024",
-    title: "Silicon Horizons & boardVault SaaS",
-    place: "Embedded Lab · India",
+    id: "inventory-flow-ml",
+    step: "04",
+    title: "Predictive ML & Inventory Intelligence",
+    place: "Applied AI Lab",
     story:
-      "Deep dive into Single Board Computers (Raspberry Pi 5, Orange Pi 5) and microcontrollers (ESP32, STM32). Architected and deployed boardVault to benchmark 50+ boards.",
-    bridge: "Building products that bridge physical hardware with cloud comparison tools.",
+      "Architected Inventory-Flow to solve real supply chain inefficiencies. Built predictive demand forecasting models in Python with scikit-learn, evaluating sales velocity and lead times to automate multi-SKU replenishment.",
+    bridge: "Translating statistical machine learning into automated business decisions.",
     fr: {
-      title: "Matériel Embarqué & SaaS boardVault",
-      place: "Laboratoire Embarqué · Inde",
+      title: "ML Prédictif & Intelligence des Stocks",
+      place: "Laboratoire IA Appliquée",
       story:
-        "Exploration des cartes SBC (Raspberry Pi 5, Orange Pi 5) et microcontrôleurs (ESP32). Conception et déploiement du SaaS boardVault.",
-      bridge: "Création de plateformes reliant le matériel physique au cloud.",
+        "Création d'Inventory-Flow pour optimiser la chaîne logistique. Modèles prédictifs scikit-learn pour anticiper la demande et éviter les ruptures.",
+      bridge: "Mettre le machine learning au service de décisions concrètes.",
     },
   },
   {
-    id: "ai-and-3d",
-    year: "2025",
-    title: "AI Integrations, 3D WebGL & Modern UX",
-    place: "India",
+    id: "knowledgex-multiagent",
+    step: "05",
+    title: "Multi-Agent Knowledge Mining & Consulting Platform",
+    place: "Azure AI & Generative Lab",
     story:
-      "Engineering next-level 3D spatial web experiences with Three.js, GSAP, and WebGL. Implementing intelligent LLM agent pipelines and sustainable food logistics in foodloop.ai.",
-    bridge: "Merging spatial computational graphics with intelligent AI architectures.",
+      "Engineered KnowledgeX, a flagship AI knowledge mining platform using a collaborative multi-agent architecture with 6 specialized agents. Integrated Azure AI Foundry & Supabase pgvector for grounded, hallucination-free RAG synthesis.",
+    bridge: "Pushing into autonomous multi-agent intelligence and contextual retrieval.",
     fr: {
-      title: "IA, WebGL 3D & UX Moderne",
-      place: "Inde",
+      title: "Plateforme IA Multi-Agents & RAG",
+      place: "Laboratoire Azure AI & Génératif",
       story:
-        "Création d'expériences 3D immersives avec Three.js, GSAP et WebGL. Intégration de modèles IA et du projet foodloop.ai.",
-      bridge: "Fusion des graphismes spatiaux et de l'intelligence artificielle.",
+        "Conception de KnowledgeX avec une architecture de 6 agents collaboratifs. RAG ancré avec Azure AI Foundry et Supabase pgvector.",
+      bridge: "Explorer l'intelligence multi-agents autonome et la recherche vectorielle.",
     },
   },
   {
-    id: "production-frontier",
-    year: "2026",
-    title: "Global Impact & Next-Gen Engineering",
-    place: "India & Beyond",
+    id: "sih-ieee-impact",
+    step: "06",
+    title: "Smart India Hackathon & IEEE Community Impact",
+    place: "National Hackathons & IEEE EPICS",
     story:
-      "Authoring high-performance open-source libraries, architecting enterprise full-stack web applications, and pushing the boundaries of web engineering.",
-    bridge: "Building resilient digital systems that scale effortlessly.",
+      "Cleared the first two rounds of Smart India Hackathon (SIH), solving national-scale problem statements. Active contributor in IEEE EPICS, collaborating on technology-driven community projects to address local societal challenges.",
+    bridge: "Building engineering solutions that serve real people and create lasting impact.",
     fr: {
-      title: "Impact Global & Ingénierie Nouvelle Génération",
-      place: "Inde & International",
+      title: "Smart India Hackathon & Impact Communautaire IEEE",
+      place: "Hackathons Nationaux & IEEE EPICS",
       story:
-        "Conception de bibliothèques open source performantes et d'applications web d'entreprise robustes.",
-      bridge: "Construire des systèmes numériques résilients et évolutifs.",
+        "Qualification aux deux premiers tours du Smart India Hackathon (SIH). Participant actif à IEEE EPICS pour des solutions d'ingénierie solidaire.",
+      bridge: "Bâtir des technologies qui ont un impact réel sur la société.",
     },
   },
 ];
