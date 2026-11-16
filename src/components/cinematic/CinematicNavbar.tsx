@@ -1,139 +1,108 @@
 import React, { useState, useEffect } from 'react';
+import { Github, ExternalLink } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import { PERSONAL_INFO } from '../../data/portfolioData';
-import { Volume2, VolumeX, Terminal, Github, Clapperboard, Sparkles } from 'lucide-react';
+
+const NAV_ITEMS = [
+  { label: 'HOME', href: 'scene-1' },
+  { label: 'WORK', href: 'scene-4' },
+  { label: 'ABOUT', href: 'scene-2' },
+  { label: 'JOURNAL', href: 'scene-3' },
+  { label: 'CONTACT', href: 'scene-5' },
+];
 
 export const CinematicNavbar: React.FC = () => {
-  const { soundEnabled, toggleSound, playClick, playHover, setIsTerminalOpen } = useTheme();
-  const [activeScene, setActiveScene] = useState('hero');
-  const [timecode, setTimecode] = useState('00:00:01:00');
+  const { playClick } = useTheme();
+  const [scrolled, setScrolled] = useState(false);
+  const [timeStr, setTimeStr] = useState('00:00:00:00');
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const h = window.innerHeight;
-      const secIdx = Math.min(Math.floor((scrollY + h * 0.3) / h), 4);
-      const sceneIds = ['scene-1', 'scene-2', 'scene-3', 'scene-4', 'scene-5'];
-      setActiveScene(sceneIds[secIdx] || 'scene-1');
-
-      // Update cinematic timecode
-      const frames = Math.floor((scrollY % 1000) / 33);
-      const seconds = Math.floor(scrollY / 100) % 60;
-      const minutes = Math.floor(scrollY / 6000) % 60;
-      setTimecode(`00:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}:${String(frames).padStart(2, '0')}`);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Cinematic timecode counter
+  useEffect(() => {
+    const start = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const frames = Math.floor((elapsed % 1000) / (1000 / 24));
+      const secs = Math.floor(elapsed / 1000) % 60;
+      const mins = Math.floor(elapsed / 60000) % 60;
+      const hrs = Math.floor(elapsed / 3600000);
+      setTimeStr(
+        `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}:${String(frames).padStart(2, '0')}`
+      );
+    }, 42); // ~24fps
+    return () => clearInterval(interval);
+  }, []);
+
   const scrollTo = (id: string) => {
     playClick();
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const navItems = [
-    { label: "PROLOGUE", id: "scene-1" },
-    { label: "UNIVERSE", id: "scene-2" },
-    { label: "JOURNEY", id: "scene-3" },
-    { label: "THEATER", id: "scene-4" },
-    { label: "CONTACT", id: "scene-5" }
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-3 sm:py-4 px-4 sm:px-8 bg-black/40 backdrop-blur-xl border-b border-white/10 select-none">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Left Branding: Cinematic Logo */}
-        <a
-          href="#scene-1"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollTo('scene-1');
-          }}
-          onMouseEnter={playHover}
-          className="flex items-center gap-3 group"
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8"
+      style={{
+        height: '52px',
+        background: scrolled
+          ? 'rgba(5, 2, 2, 0.95)'
+          : 'rgba(5, 2, 2, 0.7)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+        transition: 'background 0.4s ease',
+      }}
+    >
+      {/* Left — Brand */}
+      <button
+        onClick={() => scrollTo('scene-1')}
+        className="flex flex-col items-start group"
+      >
+        <span
+          className="font-bebas text-xl leading-none tracking-wider text-white group-hover:text-red-500 transition-colors"
         >
-          <div className="relative font-bebas text-2xl sm:text-3xl tracking-widest text-white group-hover:text-cinematic-red transition-colors flex items-center gap-2">
-            <span className="text-cinematic-red text-xl">■</span>
-            <span>AMAN</span>
-          </div>
-          <div className="hidden sm:block h-4 w-[1px] bg-white/20" />
-          <div className="hidden md:block text-[10px] font-mono tracking-widest text-slate-400 uppercase">
-            FULL-STACK ARCHITECT // 3D EXPLORER
-          </div>
-        </a>
+          AMAN
+        </span>
+        <span className="font-mono text-[7px] tracking-[0.25em] text-white/30 uppercase">
+          ARTIST · CREATIVE
+        </span>
+      </button>
 
-        {/* Center: Scene Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white/5 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-          {navItems.map((item, idx) => {
-            const isActive = activeScene === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollTo(item.id)}
-                onMouseEnter={playHover}
-                className={`px-3 py-1 rounded-full text-xs font-mono tracking-wider transition-all ${
-                  isActive
-                    ? 'bg-cinematic-red text-white font-bold shadow-lg shadow-cinematic-red/40 scale-105'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                }`}
-              >
-                {String(idx + 1).padStart(2, '0')}. {item.label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Right Controls: Timecode + Audio + Terminal + GitHub */}
-        <div className="flex items-center gap-3">
-          {/* Timecode */}
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 border border-white/10 text-[11px] font-mono text-slate-400">
-            <Clapperboard className="w-3.5 h-3.5 text-cinematic-red animate-pulse" />
-            <span className="text-white font-semibold">{timecode}</span>
-          </div>
-
-          {/* Sound FX Toggle */}
+      {/* Center — Nav links */}
+      <div className="hidden md:flex items-center gap-6 lg:gap-8">
+        {NAV_ITEMS.map(item => (
           <button
-            onClick={toggleSound}
-            onMouseEnter={playHover}
-            className={`p-2 rounded-xl border text-xs transition-all ${
-              soundEnabled
-                ? 'bg-cinematic-red/20 border-cinematic-red text-cinematic-red'
-                : 'bg-white/5 border-white/10 text-slate-400 hover:text-white'
-            }`}
-            title={soundEnabled ? "Mute audio" : "Enable futuristic sound"}
+            key={item.label}
+            onClick={() => scrollTo(item.href)}
+            className="font-mono text-[10px] tracking-[0.2em] text-white/40 hover:text-white transition-colors uppercase"
           >
-            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+            {item.label}
           </button>
-
-          {/* Terminal Launcher */}
-          <button
-            onClick={() => {
-              playClick();
-              setIsTerminalOpen(true);
-            }}
-            onMouseEnter={playHover}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono text-slate-300 hover:text-white transition-colors"
-          >
-            <Terminal className="w-3.5 h-3.5 text-emerald-400" />
-            <span>CLI</span>
-          </button>
-
-          {/* GitHub Profile Button */}
-          <a
-            href={PERSONAL_INFO.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={playClick}
-            onMouseEnter={playHover}
-            className="px-3.5 py-2 rounded-xl bg-cinematic-red hover:bg-red-600 text-white font-mono text-xs font-bold transition-all shadow-lg shadow-cinematic-red/30 flex items-center gap-1.5"
-          >
-            <Github className="w-4 h-4" />
-            <span className="hidden sm:inline">2006-Aman</span>
-          </a>
-        </div>
+        ))}
       </div>
-    </header>
+
+      {/* Right — Timecode + GitHub */}
+      <div className="flex items-center gap-4">
+        {/* Timecode display */}
+        <span className="hidden lg:block font-mono text-[9px] tracking-widest text-white/20">
+          {timeStr}
+        </span>
+
+        {/* Hire Me button */}
+        <a
+          href="https://github.com/2006-Aman"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={playClick}
+          className="flex items-center gap-1.5 font-mono text-[9px] tracking-widest text-white/50 hover:text-white border border-white/10 hover:border-white/30 px-3 py-1.5 rounded-full transition-all uppercase"
+        >
+          <Github className="w-3 h-3" />
+          <span className="hidden sm:block">GITHUB</span>
+        </a>
+      </div>
+    </nav>
   );
 };

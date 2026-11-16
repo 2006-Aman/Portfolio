@@ -8,47 +8,34 @@ import { Scene2Universe } from './components/cinematic/Scene2Universe';
 import { Scene3Timeline } from './components/cinematic/Scene3Timeline';
 import { Scene4CurvedShowcase } from './components/cinematic/Scene4CurvedShowcase';
 import { Scene5ClimaxContact } from './components/cinematic/Scene5ClimaxContact';
-import { ProjectModal } from './components/projects/ProjectModal';
-import { InteractiveTerminal } from './components/terminal/InteractiveTerminal';
 
 const CinematicPortfolioContent: React.FC = () => {
-  const { activeModalProject, setActiveModalProject } = useTheme();
-
   return (
-    <div className="relative min-h-screen bg-[#050508] text-slate-100 selection:bg-cinematic-red selection:text-white overflow-x-hidden font-sans">
-      {/* Precision Custom Pointer */}
+    <div className="relative min-h-screen bg-black text-white selection:bg-red-600 selection:text-white overflow-x-hidden">
+      {/* Cinematic cursor */}
       <CustomCursor />
 
-      {/* Real-time Z-depth Telemetry HUD */}
+      {/* Scroll progress telemetry */}
       <ScrollProgressHUD />
 
-      {/* Floating Interactive Terminal Emulator */}
-      <InteractiveTerminal />
-
-      {/* Architectural Specs Modal */}
-      <ProjectModal
-        project={activeModalProject}
-        onClose={() => setActiveModalProject(null)}
-      />
-
-      {/* Top Cinematic Film Navbar */}
+      {/* Transparent film-style navbar */}
       <CinematicNavbar />
 
-      {/* Full 5-Scene Cinematic Storyline */}
-      <main className="relative z-10 flex flex-col">
-        {/* Scene 01: The Protagonist & Giant Name Hero */}
+      {/* Main 5-scene cinematic storyline */}
+      <main className="relative">
+        {/* Scene 01: THE PROTAGONIST — Giant red AMAN text + silhouette */}
         <Scene1Hero />
 
-        {/* Scene 02: The Developer Universe & 3D Undulating Golden Energy Ribbon */}
+        {/* Scene 02: THE CREATIVE UNIVERSE — floating tools + golden ribbon */}
         <Scene2Universe />
 
-        {/* Scene 03: A Journey Through Time & Arched Radial Dial with Laser Spotlight */}
+        {/* Scene 03: JOURNEY THROUGH TIME — radial arc timeline */}
         <Scene3Timeline />
 
-        {/* Scene 04: The Curved Panoramic Screen Theater & 3D Amphitheater */}
-        <Scene4CurvedShowcase onSelectProject={(p) => setActiveModalProject(p)} />
+        {/* Scene 04: THE THEATER — curved panoramic project showcase */}
+        <Scene4CurvedShowcase />
 
-        {/* Scene 05: The Climax, Supercar Diagonal Split & Direct Dispatch */}
+        {/* Scene 05: THE CLIMAX — Ferrari diagonal + contact */}
         <Scene5ClimaxContact />
       </main>
     </div>

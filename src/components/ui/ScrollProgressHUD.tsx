@@ -1,44 +1,60 @@
 import React from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { ArrowUp, Activity } from 'lucide-react';
 
 export const ScrollProgressHUD: React.FC = () => {
-  const { scrollProgress, playClick, playHover } = useTheme();
-
-  const scrollToTop = () => {
-    playClick();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
+  const { scrollProgress } = useTheme();
   const percentage = Math.round(scrollProgress * 100);
 
+  // Determine current scene
+  const scene = percentage < 20 ? '01' : percentage < 40 ? '02' : percentage < 60 ? '03' : percentage < 80 ? '04' : '05';
+
   return (
-    <div className="fixed bottom-6 left-6 z-40 hidden sm:flex items-center gap-3">
-      {/* Cyber Telemetry Pill */}
-      <div className="glass-panel px-3.5 py-2 rounded-2xl border border-white/10 flex items-center gap-2.5 font-mono text-[11px] text-slate-300 shadow-xl backdrop-blur-xl">
-        <Activity className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
-        <span className="text-slate-500">Z_DEPTH:</span>
-        <span className="text-cyan-400 font-bold w-9">{percentage}%</span>
-        {/* Progress Mini Bar */}
-        <div className="w-16 h-1 bg-slate-800 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-cyan-400 rounded-full transition-all duration-150"
-            style={{ width: `${percentage}%` }}
-          />
+    <>
+      {/* Thin progress line at top of page */}
+      <div className="fixed top-0 left-0 right-0 z-[100] h-px pointer-events-none">
+        <div
+          className="h-full transition-all duration-150"
+          style={{
+            width: `${percentage}%`,
+            background: 'linear-gradient(90deg, #ff3b1f, #ffb703)',
+          }}
+        />
+      </div>
+
+      {/* Scene indicator — bottom right */}
+      <div className="fixed bottom-6 right-6 z-40 hidden sm:flex flex-col items-end gap-1">
+        <span className="font-mono text-[8px] tracking-[0.3em] text-white/20 uppercase">SCENE</span>
+        <span
+          className="font-bebas text-3xl leading-none"
+          style={{ color: 'rgba(255, 59, 31, 0.6)' }}
+        >
+          {scene}
+        </span>
+        <div className="flex flex-col gap-0.5 mt-1">
+          {['01','02','03','04','05'].map(s => (
+            <div
+              key={s}
+              className="w-10 h-px transition-all duration-300"
+              style={{
+                background: s === scene ? '#ff3b1f' : 'rgba(255,255,255,0.1)',
+                transform: s === scene ? 'scaleX(1)' : 'scaleX(0.6)',
+                transformOrigin: 'right',
+              }}
+            />
+          ))}
         </div>
       </div>
 
-      {/* Warp to Top */}
-      {percentage > 15 && (
+      {/* Back to top — appears after 20% */}
+      {percentage > 20 && (
         <button
-          onClick={scrollToTop}
-          onMouseEnter={playHover}
-          className="p-2.5 rounded-2xl glass-panel-glow border border-cyan-500/30 text-cyan-400 hover:text-white hover:border-cyan-300 transition-all hover:scale-110 shadow-lg animate-fade-in"
-          title="Warp to Top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-6 left-6 z-40 font-mono text-[8px] tracking-[0.2em] text-white/25 hover:text-white/70 transition-colors uppercase flex flex-col items-center gap-1 group"
         >
-          <ArrowUp className="w-4 h-4" />
+          <span className="w-px h-8 bg-gradient-to-t from-white/25 to-transparent group-hover:h-12 transition-all duration-300" />
+          <span>TOP</span>
         </button>
       )}
-    </div>
+    </>
   );
 };

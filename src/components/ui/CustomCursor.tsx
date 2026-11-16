@@ -1,72 +1,87 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const CustomCursor: React.FC = () => {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [trailingPos, setTrailingPos] = useState({ x: -100, y: -100 });
-  const [isPointer, setIsPointer] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const dotRef = useRef<HTMLDivElement>(null);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+  const posRef = useRef({ x: 0, y: 0 });
+  const ringPos = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number>(0);
 
   useEffect(() => {
-    // Only enable on fine pointer devices (desktop/mouse)
-    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      posRef.current = { x: e.clientX, y: e.clientY };
 
-    let animId: number;
-
-    const onMouseMove = (e: MouseEvent) => {
-      setPos({ x: e.clientX, y: e.clientY });
-      if (!isVisible) setIsVisible(true);
-
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        const isInteractive = target.closest('button, a, input, textarea, [role="button"]');
-        setIsPointer(!!isInteractive);
+      if (dotRef.current) {
+        dotRef.current.style.left = `${e.clientX}px`;
+        dotRef.current.style.top = `${e.clientY}px`;
       }
     };
 
-    const onMouseLeave = () => setIsVisible(false);
-    const onMouseEnter = () => setIsVisible(true);
-
-    const animateTrail = () => {
-      setTrailingPos((prev) => ({
-        x: prev.x + (pos.x - prev.x) * 0.18,
-        y: prev.y + (pos.y - prev.y) * 0.18,
-      }));
-      animId = requestAnimationFrame(animateTrail);
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.closest('button') || target.closest('a')) {
+        setIsHovering(true);
+      } else {
+        setIsHovering(false);
+      }
     };
 
-    window.addEventListener('mousemove', onMouseMove, { passive: true });
-    document.addEventListener('mouseleave', onMouseLeave);
-    document.addEventListener('mouseenter', onMouseEnter);
-    animId = requestAnimationFrame(animateTrail);
+    // Smooth ring follow
+    const animateRing = () => {
+      ringPos.current.x += (posRef.current.x - ringPos.current.x) * 0.12;
+      ringPos.current.y += (posRef.current.y - ringPos.current.y) * 0.12;
+
+      if (ringRef.current) {
+        ringRef.current.style.left = `${ringPos.current.x}px`;
+        ringRef.current.style.top = `${ringPos.current.y}px`;
+      }
+
+      rafRef.current = requestAnimationFrame(animateRing);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
+    rafRef.current = requestAnimationFrame(animateRing);
 
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseleave', onMouseLeave);
-      document.removeEventListener('mouseenter', onMouseEnter);
-      cancelAnimationFrame(animId);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseover', handleMouseOver);
+      cancelAnimationFrame(rafRef.current);
     };
-  }, [pos.x, pos.y, isVisible]);
-
-  if (!isVisible) return null;
+  }, []);
 
   return (
     <>
-      {/* Primary Dot */}
+      {/* Dot */}
       <div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-cyan-400 pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 transition-transform duration-75"
+        ref={dotRef}
+        className="cursor-dot"
         style={{
-          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) scale(${isPointer ? 1.5 : 1})`,
+          position: 'fixed',
+          width: isHovering ? '8px' : '6px',
+          height: isHovering ? '8px' : '6px',
+          background: isHovering ? '#ffb703' : '#ff3b1f',
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 10000,
+          transform: 'translate(-50%, -50%)',
+          transition: 'width 0.15s, height 0.15s, background 0.15s',
         }}
       />
-      {/* Trailing Outer Ring */}
+      {/* Ring */}
       <div
-        className={`fixed top-0 left-0 rounded-full border border-cyan-400/60 pointer-events-none z-[99] -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${
-          isPointer
-            ? 'w-10 h-10 bg-cyan-500/10 border-cyan-300 scale-125'
-            : 'w-7 h-7 bg-transparent'
-        }`}
+        ref={ringRef}
         style={{
-          transform: `translate3d(${trailingPos.x}px, ${trailingPos.y}px, 0)`,
+          position: 'fixed',
+          width: isHovering ? '48px' : '32px',
+          height: isHovering ? '48px' : '32px',
+          border: `1.5px solid ${isHovering ? 'rgba(255, 183, 3, 0.6)' : 'rgba(255, 59, 31, 0.5)'}`,
+          borderRadius: '50%',
+          pointerEvents: 'none',
+          zIndex: 9999,
+          transform: 'translate(-50%, -50%)',
+          transition: 'width 0.2s ease, height 0.2s ease, border-color 0.2s ease',
         }}
       />
     </>

@@ -1,303 +1,284 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { useTheme } from '../../context/ThemeContext';
-import { Sparkles, Layers, Code2, Terminal, Cpu, Database, Binary, Globe } from 'lucide-react';
 
-interface ToolItem {
+interface Tool {
   name: string;
-  category: string;
-  tag: string;
-  proficiency: number;
   icon: string;
   color: string;
-  pos: [number, number, number];
+  x: number;
+  y: number;
+  size: number;
 }
 
-const TOOLS: ToolItem[] = [
-  { name: "React", category: "Frontend", tag: "SPAs & Hooks", proficiency: 92, icon: "React", color: "#00d8ff", pos: [-16, 6, 8] },
-  { name: "TypeScript", category: "Languages", tag: "Strict Types", proficiency: 88, icon: "TS", color: "#3178c6", pos: [-10, -5, 12] },
-  { name: "Python", category: "Languages", tag: "AI & Scripts", proficiency: 86, icon: "Python", color: "#ffde57", pos: [12, 8, 6] },
-  { name: "Node.js", category: "Backend", tag: "REST APIs", proficiency: 85, icon: "Node", color: "#68a063", pos: [18, -4, 10] },
-  { name: "Three.js", category: "3D & WebGL", tag: "Spatial Shaders", proficiency: 84, icon: "3D", color: "#ffffff", pos: [-8, 12, 2] },
-  { name: "Kali Linux", category: "Systems", tag: "Terminal & Sec", proficiency: 90, icon: "Linux", color: "#557cda", pos: [8, 14, 2] },
-  { name: "Termux", category: "DevOps", tag: "Mobile POSIX", proficiency: 92, icon: "Shell", color: "#22c55e", pos: [-18, -10, 4] },
-  { name: "C Language", category: "Languages", tag: "Memory & Arch", proficiency: 80, icon: "C", color: "#a8b9cc", pos: [16, -11, 4] },
-  { name: "Tailwind CSS", category: "Frontend", tag: "Glass & Grids", proficiency: 95, icon: "Tailwind", color: "#38bdf8", pos: [-4, -12, 14] },
-  { name: "Git & GitHub", category: "DevOps", tag: "Version Control", proficiency: 90, icon: "Git", color: "#f05032", pos: [4, -13, 14] }
+const TOOLS: Tool[] = [
+  { name: 'Figma', icon: '🎨', color: '#f24e1e', x: 15, y: 40, size: 72 },
+  { name: 'Ae', icon: '✦', color: '#9999ff', x: 32, y: 60, size: 56 },
+  { name: 'Pr', icon: '▶', color: '#9999ff', x: 22, y: 72, size: 52 },
+  { name: 'Claude', icon: '🧠', color: '#d4a76a', x: 68, y: 22, size: 60 },
+  { name: 'ChatGPT', icon: '◎', color: '#10a37f', x: 56, y: 60, size: 56 },
+  { name: 'Midjourney', icon: '⛵', color: '#fff', x: 80, y: 42, size: 60 },
+  { name: 'Spline', icon: '◈', color: '#6dd5ed', x: 75, y: 65, size: 52 },
+  { name: 'Notion', icon: '📄', color: '#fff', x: 25, y: 85, size: 52 },
+  { name: 'Lr', icon: '◫', color: '#31a8ff', x: 42, y: 82, size: 48 },
+  { name: 'Framer', icon: '⬡', color: '#05f', x: 60, y: 80, size: 52 },
+  { name: 'Webflow', icon: 'W', color: '#4353ff', x: 72, y: 80, size: 52 },
 ];
 
 export const Scene2Universe: React.FC = () => {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const { playHover, playClick } = useTheme();
-  const [selectedTool, setSelectedTool] = useState<ToolItem>(TOOLS[0]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const timeRef = useRef(0);
+  const [hoveredTool, setHoveredTool] = useState<string | null>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Golden ribbon canvas animation
   useEffect(() => {
-    if (!mountRef.current) return;
-    const width = mountRef.current.clientWidth;
-    const height = mountRef.current.clientHeight || 560;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d')!;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-    camera.position.set(0, 0, 38);
-
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    mountRef.current.innerHTML = '';
-    mountRef.current.appendChild(renderer.domElement);
-
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
-
-    // Glowing Golden Infinity Energy Ribbon (Spline Curve)
-    const curvePoints: THREE.Vector3[] = [];
-    const numPoints = 120;
-    for (let i = 0; i <= numPoints; i++) {
-      const t = (i / numPoints) * Math.PI * 2;
-      const x = Math.sin(t) * 18;
-      const y = Math.sin(t * 2) * 8;
-      const z = Math.cos(t) * 12;
-      curvePoints.push(new THREE.Vector3(x, y, z));
-    }
-
-    const curve = new THREE.CatmullRomCurve3(curvePoints, true);
-    const tubeGeo = new THREE.TubeGeometry(curve, 160, 0.45, 12, true);
-    const tubeMat = new THREE.MeshBasicMaterial({
-      color: 0xffaa00,
-      transparent: true,
-      opacity: 0.9,
-      blending: THREE.AdditiveBlending
-    });
-    const ribbonMesh = new THREE.Mesh(tubeGeo, tubeMat);
-    mainGroup.add(ribbonMesh);
-
-    // Secondary Outer Light Ribbon
-    const outerTubeGeo = new THREE.TubeGeometry(curve, 120, 1.2, 8, true);
-    const outerTubeMat = new THREE.MeshBasicMaterial({
-      color: 0xff4500,
-      transparent: true,
-      opacity: 0.18,
-      blending: THREE.AdditiveBlending,
-      wireframe: true
-    });
-    const outerRibbonMesh = new THREE.Mesh(outerTubeGeo, outerTubeMat);
-    mainGroup.add(outerRibbonMesh);
-
-    // 3D Glass Tool Blocks
-    const toolMeshes: THREE.Mesh[] = [];
-    TOOLS.forEach((tool) => {
-      const boxGeo = new THREE.BoxGeometry(4.2, 3.2, 0.8);
-      const boxMat = new THREE.MeshStandardMaterial({
-        color: 0x111625,
-        roughness: 0.15,
-        metalness: 0.85,
-        wireframe: false
-      });
-      const boxMesh = new THREE.Mesh(boxGeo, boxMat);
-      boxMesh.position.set(...tool.pos);
-
-      // Glowing Wireframe border on the glass card
-      const wireGeo = new THREE.BoxGeometry(4.3, 3.3, 0.85);
-      const wireMat = new THREE.MeshBasicMaterial({
-        color: 0xffaa00,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.4
-      });
-      const wireMesh = new THREE.Mesh(wireGeo, wireMat);
-      boxMesh.add(wireMesh);
-
-      mainGroup.add(boxMesh);
-      toolMeshes.push(boxMesh);
-    });
-
-    // Floating Golden Particle Embers
-    const pCount = 500;
-    const pGeo = new THREE.BufferGeometry();
-    const pPositions = new Float32Array(pCount * 3);
-    for (let i = 0; i < pCount * 3; i += 3) {
-      pPositions[i] = (Math.random() - 0.5) * 60;
-      pPositions[i + 1] = (Math.random() - 0.5) * 40;
-      pPositions[i + 2] = (Math.random() - 0.5) * 35;
-    }
-    pGeo.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
-    const pMat = new THREE.PointsMaterial({
-      size: 0.9,
-      color: 0xffbb33,
-      transparent: true,
-      opacity: 0.75,
-      blending: THREE.AdditiveBlending
-    });
-    const particles = new THREE.Points(pGeo, pMat);
-    mainGroup.add(particles);
-
-    // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambientLight);
-
-    const dirLight = new THREE.DirectionalLight(0xffaa00, 1.5);
-    dirLight.position.set(0, 15, 20);
-    scene.add(dirLight);
-
-    // Mouse Interaction
-    let mouseX = 0;
-    let mouseY = 0;
-    const onMouseMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     };
-    window.addEventListener('mousemove', onMouseMove);
+    resize();
+    window.addEventListener('resize', resize);
 
-    const onResize = () => {
-      if (!mountRef.current) return;
-      const w = mountRef.current.clientWidth;
-      const h = mountRef.current.clientHeight || 560;
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
-    };
-    window.addEventListener('resize', onResize);
+    const draw = () => {
+      const { width, height } = canvas;
+      ctx.clearRect(0, 0, width, height);
 
-    let animId: number;
-    const clock = new THREE.Clock();
+      timeRef.current += 0.008;
+      const t = timeRef.current;
 
-    const animate = () => {
-      animId = requestAnimationFrame(animate);
-      const time = clock.getElapsedTime();
+      // Draw the glowing golden energy ribbon
+      for (let layer = 0; layer < 4; layer++) {
+        const alpha = 0.6 - layer * 0.12;
+        const lineWidth = 3 - layer * 0.5;
+        const offset = layer * 8;
 
-      // Smooth camera parallax
-      camera.position.x += (mouseX * 5 - camera.position.x) * 0.05;
-      camera.position.y += (-mouseY * 4 - camera.position.y) * 0.05;
-      camera.lookAt(0, 0, 0);
+        ctx.beginPath();
+        ctx.lineWidth = lineWidth;
 
-      // Ribbon undulation
-      ribbonMesh.rotation.y = time * 0.25;
-      outerRibbonMesh.rotation.y = time * 0.25;
-      ribbonMesh.rotation.z = Math.sin(time * 0.3) * 0.15;
+        for (let i = 0; i <= 200; i++) {
+          const p = i / 200;
+          // Figure-8 / lemniscate-like ribbon shape
+          const angle = p * Math.PI * 2;
+          const rx = width * 0.38;
+          const ry = height * 0.22;
 
-      // Float tool cards
-      toolMeshes.forEach((mesh, idx) => {
-        mesh.position.y = TOOLS[idx].pos[1] + Math.sin(time * 1.5 + idx) * 0.8;
-        mesh.rotation.y = Math.sin(time + idx) * 0.2;
-        mesh.rotation.x = Math.cos(time + idx) * 0.1;
-      });
+          const x = width / 2 + rx * Math.sin(angle + t * 0.6) + Math.sin(angle * 2 + t) * rx * 0.2;
+          const y = height / 2 + ry * Math.sin(angle * 2 + t * 0.4) + Math.cos(angle + t * 0.8) * ry * 0.3 + offset;
 
-      // Embers float
-      particles.rotation.y = time * 0.05;
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
 
-      renderer.render(scene, camera);
+        const grad = ctx.createLinearGradient(0, 0, width, height);
+        grad.addColorStop(0, `rgba(255, 140, 0, ${alpha})`);
+        grad.addColorStop(0.3, `rgba(255, 200, 50, ${alpha * 1.2})`);
+        grad.addColorStop(0.6, `rgba(255, 100, 0, ${alpha})`);
+        grad.addColorStop(1, `rgba(255, 160, 20, ${alpha})`);
+
+        ctx.strokeStyle = grad;
+        ctx.shadowBlur = 20 + layer * 5;
+        ctx.shadowColor = 'rgba(255, 140, 0, 0.8)';
+        ctx.stroke();
+      }
+
+      // Bright glowing particles along the ribbon
+      for (let i = 0; i < 15; i++) {
+        const p = ((i / 15) + t * 0.1) % 1;
+        const angle = p * Math.PI * 2;
+        const rx = width * 0.38;
+        const ry = height * 0.22;
+
+        const x = width / 2 + rx * Math.sin(angle + t * 0.6) + Math.sin(angle * 2 + t) * rx * 0.2;
+        const y = height / 2 + ry * Math.sin(angle * 2 + t * 0.4) + Math.cos(angle + t * 0.8) * ry * 0.3;
+
+        const particleGrad = ctx.createRadialGradient(x, y, 0, x, y, 6);
+        particleGrad.addColorStop(0, 'rgba(255, 220, 100, 1)');
+        particleGrad.addColorStop(1, 'rgba(255, 140, 0, 0)');
+
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = particleGrad;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = 'rgba(255, 200, 0, 1)';
+        ctx.fill();
+      }
+
+      ctx.shadowBlur = 0;
+      animRef.current = requestAnimationFrame(draw);
     };
 
-    animate();
+    draw();
 
     return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', onResize);
-      renderer.dispose();
-      tubeGeo.dispose();
-      tubeMat.dispose();
-      outerTubeGeo.dispose();
-      outerTubeMat.dispose();
-      pGeo.dispose();
-      pMat.dispose();
-      if (mountRef.current) mountRef.current.innerHTML = '';
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
+  // Scroll-based entrance
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, 1 - rect.bottom / (rect.height + window.innerHeight)));
+      setScrollProgress(progress);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="scene-2" className="relative min-h-screen py-24 bg-[#05060a] overflow-hidden select-none">
-      {/* Background Film Marks */}
-      <div className="max-w-7xl mx-auto px-6 mb-8 flex items-center justify-between font-mono text-[11px] text-slate-400 border-b border-white/10 pb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-yellow-400">SCENE 02</span>
-          <span>// THE DEVELOPER UNIVERSE</span>
-        </div>
-        <div className="hidden sm:block text-slate-400">
-          CORE STACK: REACT • TYPESCRIPT • PYTHON • LINUX • THREE.JS
-        </div>
+    <section
+      id="scene-2"
+      ref={sectionRef}
+      className="relative min-h-screen w-full overflow-hidden bg-black flex items-center justify-center"
+    >
+      {/* Deep space background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-[#0a0500] to-black" />
+        {/* Starfield */}
+        {Array.from({ length: 80 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: Math.random() > 0.8 ? 2 : 1,
+              height: Math.random() > 0.8 ? 2 : 1,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              opacity: Math.random() * 0.5 + 0.1,
+              animation: `pulse ${2 + Math.random() * 4}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 4}s`,
+            }}
+          />
+        ))}
+        {/* Orange-amber atmospheric glow at center */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+          style={{
+            width: '60vw',
+            height: '60vw',
+            background: 'radial-gradient(circle, rgba(255,100,0,0.08) 0%, transparent 70%)',
+          }}
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Golden ribbon canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full z-10"
+        style={{ mixBlendMode: 'screen' }}
+      />
+
+      {/* Center content */}
+      <div className="relative z-20 w-full h-full flex flex-col items-center justify-center">
+
         {/* Title */}
-        <div className="text-center mb-8">
-          <h2 className="font-bebas text-4xl sm:text-6xl md:text-7xl tracking-wider text-white uppercase mb-2">
-            The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500">Developer</span> Universe
+        <div className="text-center mb-8 md:mb-12">
+          <p className="font-mono text-[9px] tracking-[0.4em] text-white/30 uppercase mb-2">SCENE OF</p>
+          <h2 className="font-cinzel text-3xl md:text-5xl lg:text-6xl font-bold tracking-wider text-white mb-1">
+            THE CRE<span className="text-orange-400">A</span>TIVE
           </h2>
-          <p className="font-mono text-xs sm:text-sm text-slate-400 tracking-widest uppercase">
-            Tools • Code • Architecture • Embedded Hardware • Spatial 3D
+          <h2 className="font-cinzel text-3xl md:text-5xl lg:text-6xl font-bold tracking-wider text-white mb-4">
+            UNIVERSE
+          </h2>
+          <p className="font-mono text-[9px] tracking-[0.3em] text-white/30 uppercase">
+            TOOLS · IDEAS · PEOPLE · IMPACT
           </p>
         </div>
 
-        {/* 3D Canvas Stage */}
-        <div className="relative w-full h-[520px] sm:h-[620px] rounded-3xl overflow-hidden bg-gradient-to-b from-[#0a0d18] via-[#070913] to-[#04050a] border border-white/10 shadow-2xl">
-          {/* Three.js Viewport */}
-          <div ref={mountRef} className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing" />
+        {/* Person silhouette at center */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+          <svg viewBox="0 0 120 280" width="90" height="250" style={{ filter: 'drop-shadow(0 0 30px rgba(255,120,0,0.6))' }}>
+            <ellipse cx="60" cy="35" rx="18" ry="20" fill="#050505" />
+            <path d="M40,90 L50,58 L60,65 L70,58 L80,90 L85,200 L35,200Z" fill="#050505" />
+            <path d="M40,90 L25,160 L40,165 L48,100Z" fill="#050505" />
+            <path d="M80,90 L95,160 L80,165 L72,100Z" fill="#050505" />
+            <path d="M48,200 L45,275 L65,275 L62,210 L58,210 L55,275 L75,275 L72,200Z" fill="#040404" />
+            <ellipse cx="55" cy="276" rx="10" ry="4" fill="#060606" />
+            <ellipse cx="70" cy="276" rx="10" ry="4" fill="#060606" />
+          </svg>
+        </div>
 
-          {/* Central Character Silhouette gazing into universe */}
-          <div className="absolute inset-x-0 bottom-4 flex justify-center pointer-events-none z-10">
-            <svg viewBox="0 0 160 260" className="h-48 sm:h-64 w-auto drop-shadow-[0_0_25px_rgba(255,170,0,0.5)]">
-              {/* Back illumination aura */}
-              <circle cx="80" cy="90" r="50" fill="url(#univ-glow)" opacity="0.4" />
-              {/* Head */}
-              <circle cx="80" cy="40" r="18" fill="#090a10" stroke="#ffaa00" strokeWidth="1.5" />
-              {/* Torso from behind looking in */}
-              <path d="M48,80 C50,60 70,55 80,55 C90,55 110,60 112,80 L120,180 L40,180 Z" fill="#090b12" stroke="#ff8800" strokeWidth="1.5" />
-              {/* Floor radar ring */}
-              <ellipse cx="80" cy="245" rx="70" ry="12" fill="none" stroke="#ffaa00" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
-              <defs>
-                <radialGradient id="univ-glow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#ffaa00" stopOpacity="0.8" />
-                  <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-
-          {/* Interactive Floating Tool Card HUD (Top-Left) */}
-          <div className="absolute top-6 left-6 z-20 max-w-xs glass-panel p-4 rounded-2xl border border-yellow-500/30 bg-black/70 backdrop-blur-xl">
-            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1">
-              <span>SELECTED TOOL NODE</span>
-              <span className="text-yellow-400 font-bold">{selectedTool.proficiency}% MASTERY</span>
-            </div>
-            <h4 className="text-xl font-bold text-white flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: selectedTool.color }} />
-              {selectedTool.name}
-            </h4>
-            <div className="text-xs font-mono text-yellow-300 mb-2">{selectedTool.tag}</div>
-            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden mb-2">
+        {/* Floating tool cards */}
+        {TOOLS.map((tool, i) => {
+          const delay = i * 0.1;
+          const floatY = Math.sin(Date.now() * 0.001 + i) * 8;
+          return (
+            <div
+              key={tool.name}
+              className="absolute z-30 cursor-pointer transition-all duration-300"
+              style={{
+                left: `${tool.x}%`,
+                top: `${tool.y}%`,
+                transform: `translate(-50%, -50%) translateY(${floatY}px)`,
+                animation: `float ${3 + i * 0.3}s ease-in-out infinite`,
+                animationDelay: `${delay}s`,
+                opacity: hoveredTool === tool.name ? 1 : 0.85,
+                scale: hoveredTool === tool.name ? '1.15' : '1',
+              }}
+              onMouseEnter={() => setHoveredTool(tool.name)}
+              onMouseLeave={() => setHoveredTool(null)}
+            >
               <div
-                className="h-full bg-gradient-to-r from-yellow-400 to-red-500 rounded-full transition-all duration-500"
-                style={{ width: `${selectedTool.proficiency}%` }}
-              />
-            </div>
-            <div className="text-[10px] font-mono text-slate-400">
-              CATEGORY: <span className="text-white">{selectedTool.category.toUpperCase()}</span>
-            </div>
-          </div>
-
-          {/* Tool Quick Selector Pills (Bottom-Right) */}
-          <div className="absolute bottom-6 right-6 z-20 hidden sm:flex flex-wrap gap-1.5 max-w-md justify-end">
-            {TOOLS.map((tool) => (
-              <button
-                key={tool.name}
-                onClick={() => {
-                  playHover();
-                  setSelectedTool(tool);
+                className="relative rounded-2xl flex flex-col items-center justify-center gap-1 backdrop-blur-sm"
+                style={{
+                  width: tool.size,
+                  height: tool.size,
+                  background: 'rgba(15, 10, 5, 0.75)',
+                  border: `1px solid rgba(255, 160, 50, 0.2)`,
+                  boxShadow: hoveredTool === tool.name
+                    ? `0 0 30px rgba(255,160,50,0.4), inset 0 0 15px rgba(255,120,0,0.1)`
+                    : `0 0 15px rgba(0,0,0,0.5), inset 0 0 5px rgba(255,80,0,0.05)`,
+                  transition: 'all 0.3s ease',
                 }}
-                className={`px-3 py-1 text-xs font-mono rounded-lg border transition-all ${
-                  selectedTool.name === tool.name
-                    ? 'bg-yellow-500/20 border-yellow-400 text-yellow-300 font-bold shadow-lg shadow-yellow-500/20'
-                    : 'bg-black/50 border-white/10 text-slate-400 hover:text-white hover:border-white/30'
-                }`}
               >
-                {tool.name}
-              </button>
-            ))}
-          </div>
+                <span className="text-2xl leading-none">{tool.icon}</span>
+                <span
+                  className="font-bold text-center leading-tight"
+                  style={{
+                    fontSize: tool.size > 60 ? '11px' : '9px',
+                    color: tool.color,
+                    fontFamily: 'Space Grotesk, sans-serif',
+                  }}
+                >
+                  {tool.name}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Right side text */}
+        <div className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-1 font-mono text-[9px] tracking-widest text-white/25 text-right border-r border-orange-900/30 pr-3">
+          <span className="text-white/50">BETTER</span>
+          <span>INTERFACE</span>
+          <span>A BRIGHTER</span>
+          <span>TOMORROW</span>
+        </div>
+
+        <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-1 font-mono text-[9px] tracking-widest text-white/25 border-l border-orange-900/30 pl-3">
+          <span className="text-white/50">AS</span>
+          <span>DESIGN</span>
+          <span>OLD</span>
+          <span>BEAT</span>
         </div>
       </div>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-30 pointer-events-none" />
+
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+          50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+      `}</style>
     </section>
   );
 };

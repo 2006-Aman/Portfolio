@@ -1,295 +1,231 @@
 import React, { useState } from 'react';
-import { PERSONAL_INFO } from '../../data/portfolioData';
-import { useTheme } from '../../context/ThemeContext';
-import confetti from 'canvas-confetti';
-import { 
-  Send, 
-  Github, 
-  Mail, 
-  Copy, 
-  Check, 
-  ShieldCheck, 
-  CheckCircle2, 
-  ExternalLink,
-  Flame,
-  Zap,
-  ArrowUp
-} from 'lucide-react';
+import { Github, Mail, ExternalLink, ArrowUpRight } from 'lucide-react';
 
 export const Scene5ClimaxContact: React.FC = () => {
-  const { playClick, playHover, playSuccess } = useTheme();
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const [isSent, setIsSent] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = () => {
-    navigator.clipboard.writeText(PERSONAL_INFO.email);
-    setCopied(true);
-    playSuccess();
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    playSuccess();
-    setIsSent(true);
-
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      origin: { y: 0.6 },
-      colors: ['#ff3b1f', '#ffaa00', '#ffffff', '#ff1e00']
-    });
-  };
-
-  const scrollToTop = () => {
-    playClick();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSending(true);
+    await new Promise(r => setTimeout(r, 1200));
+    setSending(false);
+    setSent(true);
   };
 
   return (
-    <section id="scene-5" className="relative min-h-screen py-24 bg-[#050508] overflow-hidden select-none">
-      {/* High-Contrast Diagonal Split Background (Ferrari Luxury Climax) */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Dynamic diagonal crimson slash */}
-        <div 
-          className="absolute -top-[30%] -right-[15%] w-[85%] h-[160%] bg-gradient-to-br from-[#ff3b1f] via-[#dc2626] to-[#7f1d1d] opacity-90"
+    <section
+      id="scene-5"
+      className="relative min-h-screen w-full overflow-hidden bg-black"
+    >
+      {/* Ferrari-style diagonal split background */}
+      <div className="absolute inset-0 z-0">
+        {/* Left black side */}
+        <div className="absolute inset-0 bg-black" />
+
+        {/* Right RED half — diagonal cut like a Ferrari poster */}
+        <div
+          className="absolute top-0 right-0 h-full"
           style={{
-            transform: 'rotate(-24deg)',
-            transformOrigin: 'top right'
+            width: '65%',
+            background: 'linear-gradient(135deg, #cc0000 0%, #ff2200 40%, #ff4400 70%, #ff6600 100%)',
+            clipPath: 'polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%)',
           }}
         />
-        {/* Dark vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black/90" />
+
+        {/* White/cream accent strip */}
+        <div
+          className="absolute top-0 h-full"
+          style={{
+            right: '62%',
+            width: '10%',
+            background: 'linear-gradient(180deg, #fff 0%, #f0e8d8 50%, #e8dcc8 100%)',
+            clipPath: 'polygon(60% 0%, 100% 0%, 40% 100%, 0% 100%)',
+            opacity: 0.95,
+          }}
+        />
+
+        {/* Ferrari logo area */}
+        <div
+          className="absolute bottom-8 right-8 opacity-20"
+          style={{ color: '#ffcc00', fontSize: '48px', fontWeight: 900, fontFamily: 'serif' }}
+        >
+          🐴
+        </div>
+
+        {/* Atmospheric orange fog on red side */}
+        <div
+          className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 70% 30%, rgba(255,200,50,0.15) 0%, transparent 60%)',
+          }}
+        />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Scene Marker */}
-        <div className="mb-8 flex items-center justify-between font-mono text-[11px] text-white/70 border-b border-white/20 pb-3">
-          <div className="flex items-center gap-2">
-            <span className="text-yellow-300 font-bold">SCENE 05</span>
-            <span>// THE CLIMAX &amp; FINAL DISPATCH</span>
-          </div>
-          <div className="text-white font-mono font-bold">
-            GITHUB: <a href="https://github.com/2006-Aman" target="_blank" rel="noreferrer" className="underline hover:text-yellow-300">https://github.com/2006-Aman</a>
-          </div>
+      {/* Person leaning on car (SVG representation) */}
+      <div
+        className="absolute z-10 pointer-events-none"
+        style={{ right: '5%', bottom: '0%', width: '45%', maxWidth: '500px' }}
+      >
+        {/* Stylized person + car composition */}
+        <svg viewBox="0 0 400 500" width="100%" className="drop-shadow-2xl">
+          {/* Car body outline */}
+          <path
+            d="M20,350 Q40,290 120,270 L240,250 Q320,245 380,280 L390,350 Q390,420 20,420 Z"
+            fill="rgba(180,0,0,0.4)"
+            stroke="rgba(255,80,0,0.3)"
+            strokeWidth="2"
+          />
+          {/* Car hood/bonnet */}
+          <path
+            d="M60,280 Q100,230 200,215 Q280,210 340,250 L380,280 Q300,260 180,255 Q90,255 60,280Z"
+            fill="rgba(200,0,0,0.5)"
+            stroke="rgba(255,120,0,0.4)"
+            strokeWidth="1.5"
+          />
+          {/* Windshield */}
+          <path
+            d="M140,255 Q170,210 230,205 Q280,210 320,245 Q270,230 190,235Z"
+            fill="rgba(100,100,150,0.3)"
+            stroke="rgba(200,200,255,0.3)"
+            strokeWidth="1"
+          />
+          {/* Wheels */}
+          <circle cx="100" cy="390" r="45" fill="rgba(20,20,20,0.9)" stroke="rgba(255,100,0,0.4)" strokeWidth="3" />
+          <circle cx="100" cy="390" r="25" fill="rgba(50,50,50,0.8)" stroke="rgba(255,120,0,0.6)" strokeWidth="2" />
+          <circle cx="310" cy="390" r="45" fill="rgba(20,20,20,0.9)" stroke="rgba(255,100,0,0.4)" strokeWidth="3" />
+          <circle cx="310" cy="390" r="25" fill="rgba(50,50,50,0.8)" stroke="rgba(255,120,0,0.6)" strokeWidth="2" />
+
+          {/* Ferrari prancing horse emblem hint */}
+          <text x="195" y="265" fontSize="16" fill="rgba(255,220,0,0.4)" textAnchor="middle">🐴</text>
+
+          {/* Person leaning on hood */}
+          {/* Head */}
+          <ellipse cx="210" cy="130" rx="22" ry="24" fill="#0a0a0a" />
+          {/* Hair */}
+          <path d="M190,120 Q200,100 215,100 Q228,100 230,118 Q222,110 210,110 Q198,110 190,120Z" fill="#111" />
+          {/* Sunglasses */}
+          <rect x="197" y="125" width="13" height="7" rx="2.5" fill="#111" stroke="rgba(255,100,0,0.6)" strokeWidth="1" />
+          <rect x="212" y="125" width="13" height="7" rx="2.5" fill="#111" stroke="rgba(255,100,0,0.6)" strokeWidth="1" />
+          {/* Jacket */}
+          <path d="M180,195 L195,155 L210,162 L215,195Z" fill="#080808" stroke="rgba(255,80,0,0.2)" strokeWidth="1" />
+          <path d="M240,195 L225,155 L210,162 L215,195Z" fill="#080808" stroke="rgba(255,80,0,0.2)" strokeWidth="1" />
+          <path d="M180,195 L185,290 L240,290 L245,195Z" fill="#070707" stroke="rgba(255,60,0,0.15)" strokeWidth="1" />
+          {/* Arm resting on car */}
+          <path d="M245,195 L290,230 L295,245 L260,240 L240,210Z" fill="#070707" stroke="rgba(255,80,0,0.2)" strokeWidth="1" />
+          {/* Hand */}
+          <ellipse cx="293" cy="248" rx="9" ry="7" fill="#0a0a0a" />
+          {/* Legs */}
+          <path d="M185,290 L182,370 L200,370 L210,310 L220,310 L228,370 L246,370 L242,290Z" fill="#060606" />
+        </svg>
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-20 flex flex-col h-full min-h-screen pt-24 px-6 md:px-12">
+
+        {/* Top cinematic label */}
+        <div className="flex flex-col gap-1 mb-auto">
+          <p className="font-mono text-[9px] tracking-[0.4em] text-white/30 uppercase">SCENE 05 // CLIMAX</p>
+          <p className="font-mono text-[9px] tracking-[0.4em] text-white/20 uppercase">ALL RIGHTS RESERVED</p>
         </div>
 
-        {/* Supercar Visual & Headline */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
-          {/* Left: Giant Bold Headline & Supercar Art */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-black/60 border border-white/20 text-yellow-300 text-xs font-mono">
-              <Flame className="w-3.5 h-3.5 text-yellow-400 animate-pulse" />
-              <span>THE GRAND FINALE // DRIVEN BY CODE</span>
+        {/* Main title area - bottom left */}
+        <div className="mt-auto mb-16 max-w-lg">
+          <h2
+            className="font-bebas text-6xl md:text-8xl lg:text-9xl leading-none text-white mb-2"
+            style={{ letterSpacing: '-0.02em' }}
+          >
+            LET'S
+          </h2>
+          <h2
+            className="font-bebas text-6xl md:text-8xl lg:text-9xl leading-none mb-6"
+            style={{
+              letterSpacing: '-0.02em',
+              background: 'linear-gradient(90deg, #fff, rgba(255,255,255,0.7))',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            CREATE
+          </h2>
+
+          {/* Contact form */}
+          {!sent ? (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-sm">
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={e => setFormData(p => ({ ...p, name: e.target.value }))}
+                required
+                className="bg-black/60 border border-white/10 text-white placeholder-white/30 font-mono text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-orange-500/50 backdrop-blur-sm transition-colors"
+              />
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={e => setFormData(p => ({ ...p, email: e.target.value }))}
+                required
+                className="bg-black/60 border border-white/10 text-white placeholder-white/30 font-mono text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-orange-500/50 backdrop-blur-sm transition-colors"
+              />
+              <textarea
+                placeholder="Your Message..."
+                value={formData.message}
+                onChange={e => setFormData(p => ({ ...p, message: e.target.value }))}
+                required
+                rows={3}
+                className="bg-black/60 border border-white/10 text-white placeholder-white/30 font-mono text-sm px-4 py-3 rounded-lg focus:outline-none focus:border-orange-500/50 backdrop-blur-sm resize-none transition-colors"
+              />
+              <button
+                type="submit"
+                disabled={sending}
+                className="flex items-center justify-center gap-2 bg-white text-black font-mono text-sm font-bold tracking-widest py-3 px-6 rounded-lg hover:bg-orange-100 transition-colors disabled:opacity-60"
+              >
+                {sending ? 'SENDING...' : 'SEND MESSAGE'}
+                {!sending && <ArrowUpRight className="w-4 h-4" />}
+              </button>
+            </form>
+          ) : (
+            <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4 max-w-sm">
+              <p className="font-mono text-green-400 text-sm">✓ MESSAGE DELIVERED — I'll be in touch soon!</p>
             </div>
+          )}
 
-            <h2 className="font-bebas text-5xl sm:text-7xl md:text-8xl tracking-tight text-white uppercase leading-[0.9]">
-              DRIVEN BY <span className="text-yellow-300 drop-shadow-[0_0_25px_rgba(255,183,3,0.8)]">PRECISION.</span>
-              <br />
-              READY FOR THE NEXT HORIZON.
-            </h2>
-
-            <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-sans max-w-xl">
-              I&apos;m <span className="text-white font-bold">Aman Kumar</span> (B.Tech Computer Science &amp; Engineering). Whether it&apos;s architecting cloud SaaS engines like <span className="text-yellow-300 font-semibold">boardVault</span>, AI networks like <span className="text-yellow-300 font-semibold">foodloop.ai</span>, or pioneering 3D spatial web physics, let&apos;s build something legendary together.
-            </p>
-
-            {/* Stylized Ferrari Supercar & Developer Silhouette Vector */}
-            <div className="relative w-full h-44 sm:h-56 rounded-2xl bg-black/50 border border-white/20 p-4 flex items-center justify-center overflow-hidden">
-              <svg viewBox="0 0 500 180" className="w-full h-full drop-shadow-[0_0_20px_rgba(255,59,31,0.5)]">
-                {/* Supercar Silhouette (Ferrari F40 / GT style) */}
-                <path
-                  d="M40,140 L70,140 C75,120 95,120 100,140 L280,140 C285,120 305,120 310,140 L450,140 L440,110 L380,95 L310,80 L210,80 L140,100 L60,115 Z"
-                  fill="#ff2a00"
-                  stroke="#ffffff"
-                  strokeWidth="1.5"
-                />
-                {/* Windows & Windshield */}
-                <path d="M150,98 L210,84 L300,84 L280,98 Z" fill="#090a12" stroke="#ffaa00" strokeWidth="1" />
-                {/* Wheels */}
-                <circle cx="85" cy="140" r="20" fill="#141724" stroke="#ffaa00" strokeWidth="2" />
-                <circle cx="85" cy="140" r="8" fill="#ff2a00" />
-                <circle cx="295" cy="140" r="20" fill="#141724" stroke="#ffaa00" strokeWidth="2" />
-                <circle cx="295" cy="140" r="8" fill="#ff2a00" />
-                {/* Character Silhouette leaning on car */}
-                <circle cx="230" cy="50" r="12" fill="#090b12" stroke="#ffaa00" strokeWidth="1.5" />
-                <rect x="224" y="47" width="14" height="6" rx="1.5" fill="#ffaa00" />
-                <path d="M215,65 C220,62 240,62 245,65 L250,120 L210,120 Z" fill="#07080f" stroke="#ffffff" strokeWidth="1" />
-                {/* Headlights beam */}
-                <polygon points="40,135 0,115 0,150" fill="url(#beam-glow)" opacity="0.6" />
-                <defs>
-                  <linearGradient id="beam-glow" x1="100%" y1="50%" x2="0%" y2="50%">
-                    <stop offset="0%" stopColor="#ffea00" stopOpacity="0.9" />
-                    <stop offset="100%" stopColor="#ffaa00" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-          </div>
-
-          {/* Right: Direct Transmission Dispatcher & Verified Coordinates */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="glass-panel-glow p-6 sm:p-8 rounded-3xl border border-white/20 bg-black/90 backdrop-blur-2xl shadow-2xl relative">
-              {isSent ? (
-                <div className="py-12 flex flex-col items-center text-center space-y-4 animate-fade-in">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-emerald-400">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h3 className="font-bebas text-3xl text-white tracking-wide">TRANSMISSION SENT!</h3>
-                  <p className="text-xs sm:text-sm text-slate-300 font-mono">
-                    Thank you, <span className="text-yellow-300 font-bold">{formData.name}</span>. Your message has been received. I will respond to <span className="text-white">{formData.email}</span> promptly.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setIsSent(false);
-                      setFormData({ name: '', email: '', subject: '', message: '' });
-                    }}
-                    className="mt-4 px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono text-white transition-colors"
-                  >
-                    SEND ANOTHER PACKET
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                    <h3 className="font-bebas text-2xl tracking-wider text-white flex items-center gap-2">
-                      <Zap className="w-5 h-5 text-yellow-400" />
-                      <span>DIRECT DISPATCH TRANSMITTER</span>
-                    </h3>
-                    <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5" /> SECURE
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-mono text-slate-400 mb-1">
-                        NAME *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="Alex Mercer"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-white text-xs font-sans focus:border-yellow-400 outline-none"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-[11px] font-mono text-slate-400 mb-1">
-                        EMAIL *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="alex@company.com"
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-white text-xs font-sans focus:border-yellow-400 outline-none"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-mono text-slate-400 mb-1">
-                      SUBJECT
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="Internship / Engineering project collaboration"
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-white text-xs font-sans focus:border-yellow-400 outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-mono text-slate-400 mb-1">
-                      MESSAGE BODY *
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Let's build something impactful together..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-white text-xs font-sans focus:border-yellow-400 outline-none resize-none"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    onMouseEnter={playHover}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cinematic-red via-orange-500 to-yellow-400 text-black font-bebas text-lg tracking-wider hover:opacity-95 transition-all shadow-xl shadow-cinematic-red/30 flex items-center justify-center gap-2"
-                  >
-                    <span>TRANSMIT MESSAGE NOW</span>
-                    <Send className="w-4 h-4 text-black" />
-                  </button>
-                </form>
-              )}
-
-              {/* Verified One-Click Email Copy Card */}
-              <div className="mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="text-[10px] font-mono text-slate-400">VERIFIED EMAIL</div>
-                  <div className="text-xs font-mono text-white">{PERSONAL_INFO.email}</div>
-                </div>
-
-                <button
-                  onClick={copyEmail}
-                  onMouseEnter={playHover}
-                  className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/20 text-xs font-mono text-yellow-300 flex items-center gap-1.5 transition-colors"
-                >
-                  {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>{copied ? "COPIED!" : "COPY EMAIL"}</span>
-                </button>
-              </div>
-
-              {/* Verified GitHub Card */}
-              <div className="mt-3 p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Github className="w-4 h-4 text-cinematic-red" />
-                  <span className="text-xs font-mono text-white">github.com/2006-Aman</span>
-                </div>
-                <a
-                  href="https://github.com/2006-Aman"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-mono text-yellow-300 hover:text-white flex items-center gap-1"
-                >
-                  <span>PROFILE</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Film Credits Bottom Bar */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-400">
-          <div>
-            © {new Date().getFullYear()} AMAN KUMAR. PRODUCED WITH REACT, THREE.JS &amp; CINEMATIC WEBGL.
-          </div>
-          <div className="flex items-center gap-4">
-            <a href="https://github.com/2006-Aman" target="_blank" rel="noreferrer" className="text-white hover:text-cinematic-red">
-              GITHUB // 2006-AMAN
+          {/* Links row */}
+          <div className="flex flex-wrap items-center gap-4 mt-6">
+            <a
+              href="https://github.com/2006-Aman"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 font-mono text-xs tracking-widest text-white/60 hover:text-white transition-colors border border-white/10 hover:border-white/30 px-4 py-2 rounded-full"
+            >
+              <Github className="w-3.5 h-3.5" />
+              @2006-AMAN
             </a>
-            <button onClick={scrollToTop} className="hover:text-yellow-300 flex items-center gap-1">
-              <span>BACK TO TOP</span>
-              <ArrowUp className="w-3.5 h-3.5" />
-            </button>
+            <a
+              href="mailto:amankumar.kumar2006@gmail.com"
+              className="flex items-center gap-2 font-mono text-xs tracking-widest text-white/60 hover:text-white transition-colors border border-white/10 hover:border-white/30 px-4 py-2 rounded-full"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              EMAIL
+            </a>
           </div>
+
+          {/* Copyright */}
+          <p className="font-mono text-[9px] tracking-widest text-white/20 mt-6 uppercase">
+            © 2024 AMAN KUMAR — ALL RIGHTS RESERVED
+          </p>
         </div>
       </div>
+
+      {/* CRT scanline */}
+      <div
+        className="absolute inset-0 z-5 pointer-events-none opacity-[0.03]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,1) 2px, rgba(0,0,0,1) 4px)',
+        }}
+      />
     </section>
   );
 };

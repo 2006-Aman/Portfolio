@@ -1,205 +1,235 @@
-import React, { useEffect, useState } from 'react';
-import { PERSONAL_INFO } from '../../data/portfolioData';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTheme } from '../../context/ThemeContext';
-import { ArrowDown, Github, Terminal, Sparkles, Play } from 'lucide-react';
 
 export const Scene1Hero: React.FC = () => {
-  const { playClick, playHover, setIsTerminalOpen } = useTheme();
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+  const { playClick } = useTheme();
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 20;
-      const y = (e.clientY / window.innerHeight - 0.5) * 15;
-      setMouseOffset({ x, y });
+      const x = (e.clientX / window.innerWidth - 0.5) * 30;
+      const y = (e.clientY / window.innerHeight - 0.5) * 20;
+      setMousePos({ x, y });
     };
-
+    const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
-  const scrollTo = (id: string) => {
+  const scrollToNext = () => {
     playClick();
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('scene-2')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const parallaxY = scrollY * 0.4;
 
   return (
     <section
       id="scene-1"
-      className="relative min-h-screen w-full flex flex-col justify-between items-center overflow-hidden bg-[#060609] pt-24 pb-12 select-none"
+      ref={heroRef}
+      className="relative min-h-screen w-full flex flex-col overflow-hidden bg-black select-none"
+      style={{ cursor: 'none' }}
     >
-      {/* Top Film Reel Marks */}
-      <div className="w-full max-w-7xl px-6 flex items-center justify-between text-[11px] font-mono tracking-widest text-slate-400 border-b border-white/10 pb-3 z-20">
-        <div className="flex items-center gap-3">
-          <span className="text-cinematic-red font-bold animate-pulse">● REC</span>
-          <span>SCENE 01 // THE PROTAGONIST</span>
+      {/* Cinematic top bar */}
+      <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between px-8 py-4 border-b border-white/5">
+        <div className="flex items-center gap-3 font-mono text-[11px] tracking-widest">
+          <span className="text-red-500 animate-pulse font-bold">● REC</span>
+          <span className="text-white/40">00:00:01:24</span>
         </div>
-        <div className="hidden sm:flex items-center gap-4 text-slate-400">
-          <span>FPS: 60.00</span>
-          <span>SHUTTER: 180°</span>
-          <span>ISO: 800</span>
-          <span className="text-white font-bold">@2006-Aman</span>
+        <div className="flex items-center gap-6 font-mono text-[10px] tracking-widest text-white/30">
+          <span>SCENE 01</span>
+          <span>ISO 800</span>
+          <span>24fps</span>
         </div>
       </div>
 
-      {/* Cinematic Centerpiece */}
-      <div className="relative w-full flex-1 flex flex-col items-center justify-center text-center my-auto z-10 px-4">
-        {/* Subtitle Header */}
-        <div className="flex items-center gap-3 text-xs sm:text-sm font-mono tracking-[0.35em] text-slate-300 uppercase mb-4 animate-fade-in">
-          <span className="text-cinematic-red">•••</span>
-          <span>WELCOME TO MY WORLD</span>
-          <span className="text-cinematic-red">•••</span>
+      {/* Background smoke/fog effect */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0000] via-black to-black" />
+        {/* Red atmospheric glow behind the text */}
+        <div
+          className="absolute inset-x-0 top-1/4 h-96 opacity-20"
+          style={{
+            background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #ff2200, transparent)',
+            transform: `translateY(${-parallaxY * 0.3}px)`,
+          }}
+        />
+        {/* Noise texture overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
+          }}
+        />
+      </div>
+
+      {/* Main centered content */}
+      <div className="relative flex-1 flex flex-col items-center justify-center z-10"
+        style={{ transform: `translateY(${-parallaxY * 0.2}px)` }}>
+
+        {/* Welcome subtitle */}
+        <div className="flex items-center gap-3 mb-2 md:mb-4">
+          <span className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-white/60 uppercase">
+            ••• WELCOME TO MY WORLD •••
+          </span>
         </div>
 
-        {/* The Giant Bold Red Typography Layer with Parallax */}
-        <div className="relative w-full max-w-7xl mx-auto flex items-center justify-center">
-          {/* Giant Background Text: AMAN */}
+        {/* Giant AMAN text with person silhouette on top */}
+        <div className="relative w-full flex items-center justify-center">
+          {/* Background giant name — parallax slower */}
           <h1
+            className="font-bebas text-[42vw] sm:text-[38vw] md:text-[32vw] leading-[0.82] tracking-tight select-none"
             style={{
-              transform: `translate3d(${-mouseOffset.x * 0.5}px, ${-mouseOffset.y * 0.5}px, 0)`,
-              transition: 'transform 0.15s ease-out'
+              background: 'linear-gradient(180deg, #ff4500 0%, #cc2200 40%, #880000 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 60px rgba(255, 60, 0, 0.5))',
+              transform: `translate(${-mousePos.x * 0.3}px, ${-mousePos.y * 0.3}px)`,
+              transition: 'transform 0.12s ease-out',
             }}
-            className="font-bebas text-[28vw] sm:text-[24vw] md:text-[22vw] leading-[0.8] tracking-tighter font-black text-transparent bg-clip-text bg-gradient-to-b from-[#ff4500] via-[#e63946] to-[#7f1d1d] select-none drop-shadow-[0_20px_50px_rgba(255,59,31,0.45)]"
           >
             AMAN
           </h1>
 
-          {/* Central Character Silhouette layered over the text */}
+          {/* Person silhouette — foreground, parallax faster */}
           <div
-            style={{
-              transform: `translate3d(${mouseOffset.x * 0.8}px, ${mouseOffset.y * 0.8}px, 0)`,
-              transition: 'transform 0.15s ease-out'
-            }}
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+            style={{
+              transform: `translate(${mousePos.x * 0.6}px, ${mousePos.y * 0.6}px)`,
+              transition: 'transform 0.08s ease-out',
+            }}
           >
-            {/* Highly stylized cinematic developer silhouette with glowing rim lighting */}
-            <div className="relative h-[340px] sm:h-[460px] md:h-[540px] w-auto aspect-[1/2] flex items-end justify-center">
-              {/* Silhouette Graphics using SVG vector with sunglasses & sleek jacket */}
+            <div className="relative" style={{ height: '70vh', maxHeight: '600px' }}>
+              {/* Person SVG silhouette */}
               <svg
-                viewBox="0 0 200 400"
-                className="h-full w-auto drop-shadow-[0_0_35px_rgba(255,100,50,0.6)]"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 220 500"
+                className="h-full w-auto"
+                style={{ filter: 'drop-shadow(0 0 40px rgba(255, 100, 30, 0.7)) drop-shadow(0 0 80px rgba(255, 60, 0, 0.3))' }}
               >
-                {/* Back Rim Lighting Aura */}
-                <ellipse cx="100" cy="180" rx="65" ry="120" fill="url(#hero-glow)" opacity="0.4" />
-                
-                {/* Head and Hair */}
-                <path
-                  d="M80,75 C70,60 90,30 110,32 C125,34 135,45 130,65 C135,62 140,75 132,82 C125,90 120,95 105,95 C90,95 82,88 80,75 Z"
-                  fill="#0c0e17"
-                  stroke="#ff5722"
-                  strokeWidth="1.5"
+                {/* Orange/amber rim light aura behind */}
+                <ellipse cx="110" cy="350" rx="40" ry="90" fill="rgba(255,120,0,0.12)" />
+
+                {/* Head */}
+                <ellipse cx="110" cy="68" rx="30" ry="34" fill="#0a0a0a" />
+                {/* Hair */}
+                <path d="M82,55 Q90,30 110,30 Q130,30 138,55 Q130,45 110,43 Q90,43 82,55Z" fill="#111" />
+
+                {/* Sunglasses - iconic red */}
+                <rect x="93" y="62" width="17" height="9" rx="3" fill="#cc1100" />
+                <rect x="114" y="62" width="17" height="9" rx="3" fill="#cc1100" />
+                <line x1="110" y1="66" x2="114" y2="66" stroke="#cc1100" strokeWidth="2" />
+                {/* Earpieces */}
+                <line x1="93" y1="66" x2="88" y2="66" stroke="#888" strokeWidth="1.5" />
+                <line x1="131" y1="66" x2="136" y2="66" stroke="#888" strokeWidth="1.5" />
+
+                {/* Neck */}
+                <rect x="103" y="100" width="14" height="20" fill="#0d0d0d" />
+
+                {/* Body - blazer/jacket */}
+                <path d="M55,165 L85,118 L105,125 L110,160 L115,125 L135,118 L165,165 L170,320 L50,320 Z"
+                  fill="#080808"
+                  stroke="rgba(255,80,0,0.3)"
+                  strokeWidth="1"
                 />
+                {/* Lapels */}
+                <path d="M85,118 L105,125 L100,165 Z" fill="#0f0f0f" stroke="rgba(255,80,0,0.2)" strokeWidth="1" />
+                <path d="M135,118 L115,125 L120,165 Z" fill="#0f0f0f" stroke="rgba(255,80,0,0.2)" strokeWidth="1" />
 
-                {/* Sunglasses */}
-                <rect x="88" y="60" width="16" height="8" rx="2" fill="#ff3b1f" opacity="0.9" />
-                <rect x="108" y="60" width="16" height="8" rx="2" fill="#ff3b1f" opacity="0.9" />
-                <line x1="104" y1="63" x2="108" y2="63" stroke="#ff3b1f" strokeWidth="2" />
+                {/* Shirt under blazer */}
+                <path d="M100,125 L120,125 L118,230 L102,230Z" fill="#121212" />
 
-                {/* Neck & Collar */}
-                <path d="M92,90 L92,105 L118,105 L118,90 Z" fill="#141724" />
+                {/* Arms */}
+                <path d="M55,165 L40,280 L60,285 L75,180Z" fill="#0a0a0a" stroke="rgba(255,70,0,0.2)" strokeWidth="1" />
+                <path d="M165,165 L180,280 L160,285 L145,180Z" fill="#0a0a0a" stroke="rgba(255,70,0,0.2)" strokeWidth="1" />
 
-                {/* Stylish Jacket / Shoulders */}
-                <path
-                  d="M45,150 C50,115 80,105 105,105 C130,105 160,115 165,150 L180,240 C175,250 160,250 155,230 L145,155 L135,260 L75,260 L65,155 L55,230 C50,250 35,250 30,240 Z"
-                  fill="#090a10"
-                  stroke="#ff6b35"
-                  strokeWidth="1.5"
-                />
+                {/* Hands */}
+                <ellipse cx="50" cy="290" rx="10" ry="12" fill="#0d0d0d" />
+                <ellipse cx="170" cy="290" rx="10" ry="12" fill="#0d0d0d" />
 
-                {/* Chest & Shirt */}
-                <path d="M85,115 L125,115 L118,220 L92,220 Z" fill="#171926" />
-                <line x1="105" y1="120" x2="105" y2="215" stroke="#ff3b1f" strokeWidth="1.5" opacity="0.6" />
-
-                {/* Trousers & Legs */}
-                <path
-                  d="M75,260 L135,260 L145,390 L115,390 L108,290 L102,290 L95,390 L65,390 Z"
-                  fill="#06070a"
-                  stroke="#ff5722"
+                {/* Legs */}
+                <path d="M70,320 L80,480 L105,480 L110,350 L115,480 L140,480 L150,320Z"
+                  fill="#070707"
+                  stroke="rgba(255,60,0,0.15)"
                   strokeWidth="1"
                 />
 
-                {/* Gradient Definition */}
-                <defs>
-                  <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stopColor="#ff4500" stopOpacity="0.8" />
-                    <stop offset="60%" stopColor="#ff1e00" stopOpacity="0.3" />
-                    <stop offset="100%" stopColor="#000000" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
+                {/* Feet */}
+                <ellipse cx="92" cy="484" rx="13" ry="6" fill="#090909" />
+                <ellipse cx="128" cy="484" rx="13" ry="6" fill="#090909" />
+
+                {/* Orange rim lighting on edges */}
+                <path d="M55,165 L40,280" stroke="rgba(255,120,30,0.5)" strokeWidth="1.5" fill="none" />
+                <path d="M165,165 L180,280" stroke="rgba(255,120,30,0.5)" strokeWidth="1.5" fill="none" />
+                <path d="M82,55 Q70,80 55,165" stroke="rgba(255,100,20,0.3)" strokeWidth="1" fill="none" />
+                <path d="M138,55 Q150,80 165,165" stroke="rgba(255,100,20,0.3)" strokeWidth="1" fill="none" />
+
+                {/* Floor glow/shadow */}
+                <ellipse cx="110" cy="490" rx="55" ry="8" fill="rgba(255,80,0,0.15)" />
               </svg>
             </div>
           </div>
         </div>
 
-        {/* Film Scene Markers on Sides */}
-        <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-2 font-mono text-[10px] text-slate-500 uppercase tracking-widest border-l-2 border-cinematic-red pl-3 text-left">
-          <span className="text-white font-bold">ARTIST // ARCHITECT</span>
-          <span>AMAN KUMAR</span>
-          <span>B.TECH CSE</span>
-          <span>INDIA</span>
+        {/* Scene markers on sides */}
+        <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-1.5 font-mono text-[9px] tracking-widest text-white/25 border-l border-red-800/50 pl-3">
+          <span className="text-white/60">ARTIST // GIREESH</span>
+          <span>CREATIVE</span>
+          <span>STORYTELLER</span>
         </div>
 
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-2 font-mono text-[10px] text-slate-500 uppercase tracking-widest border-r-2 border-cinematic-red pr-3 text-right">
-          <span className="text-white font-bold">LEGENDARY REPOS</span>
-          <span>BOARDVAULT SAAS</span>
-          <span>FOODLOOP.AI</span>
-          <span className="text-cinematic-red">GITHUB: 2006-AMAN</span>
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-1.5 font-mono text-[9px] tracking-widest text-white/25 border-r border-red-800/50 pr-3 text-right">
+          <span className="text-red-500/80">◄ LEGEND ►</span>
+          <div className="flex flex-col gap-1 mt-2">
+            {[1,2,3,4,5,6,7,8].map(i => (
+              <div key={i} className="flex justify-end gap-0.5">
+                {[1,2,3,4,5,6,7,8].map(j => (
+                  <div key={j} className="w-1 h-1 rounded-full bg-white/20" />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Call to Actions Bar */}
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-4 z-30">
-          <button
-            onClick={() => scrollTo('scene-2')}
-            onMouseEnter={playHover}
-            className="group px-8 py-3.5 rounded-full bg-cinematic-red hover:bg-red-600 text-white font-mono text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-xl shadow-cinematic-red/40 hover:scale-105 flex items-center gap-2"
-          >
-            <span>ENTER THE UNIVERSE</span>
-            <ArrowDown className="w-4 h-4 transition-transform group-hover:translate-y-1" />
-          </button>
-
-          <a
-            href="https://github.com/2006-Aman"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={playClick}
-            onMouseEnter={playHover}
-            className="px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-mono text-xs tracking-wider uppercase transition-all flex items-center gap-2"
-          >
-            <Github className="w-4 h-4 text-cinematic-red" />
-            <span>GITHUB @2006-AMAN</span>
-          </a>
-
-          <button
-            onClick={() => {
-              playClick();
-              setIsTerminalOpen(true);
-            }}
-            onMouseEnter={playHover}
-            className="px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white font-mono text-xs tracking-wider uppercase transition-all flex items-center gap-2"
-          >
-            <Terminal className="w-4 h-4 text-emerald-400" />
-            <span>LAUNCH CLI</span>
-          </button>
+        {/* Left film strip arrow markers */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-3">
+          {[0,1,2,3,4].map(i => (
+            <div key={i} className="text-white/20 font-mono text-xs">▶</div>
+          ))}
         </div>
       </div>
 
-      {/* Bottom Film Slate Footer */}
-      <div className="w-full max-w-7xl px-6 flex items-center justify-between text-[11px] font-mono tracking-widest text-slate-400 border-t border-white/10 pt-3 z-20">
-        <div className="flex items-center gap-2">
-          <span className="text-cinematic-red">TAKE 01</span>
-          <span>// DIRECTED BY AMAN KUMAR</span>
-        </div>
+      {/* Bottom scroll CTA */}
+      <div className="relative z-20 flex flex-col items-center pb-8 gap-3">
         <button
-          onClick={() => scrollTo('scene-2')}
-          className="flex items-center gap-1.5 text-slate-300 hover:text-cinematic-red transition-colors animate-bounce"
+          onClick={scrollToNext}
+          className="flex flex-col items-center gap-2 text-white/40 hover:text-white/80 transition-colors group"
         >
-          <span>SCROLL TO ADVANCE</span>
-          <ArrowDown className="w-3.5 h-3.5" />
+          <span className="font-mono text-[9px] tracking-[0.3em] uppercase">SCROLL</span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent group-hover:h-16 transition-all duration-300" />
         </button>
       </div>
+
+      {/* Vignette overlay */}
+      <div
+        className="absolute inset-0 z-5 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%)',
+        }}
+      />
+
+      {/* CRT scanline effect */}
+      <div
+        className="absolute inset-0 z-5 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,1) 2px, rgba(0,0,0,1) 4px)',
+        }}
+      />
     </section>
   );
 };
