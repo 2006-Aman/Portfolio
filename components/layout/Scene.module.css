@@ -20,6 +20,22 @@
   height: 100%;
 }
 
+/* tall scene: rises over earlier sticky scenes (via z-index + opaque bg),
+   then scrolls naturally through its full height so content is never clipped
+   on shorter laptop viewports */
+.tall {
+  position: relative;
+  height: auto;
+  min-height: 100svh;
+  background: var(--bg, #fff);
+  isolation: isolate;
+  overflow-x: clip;
+  overflow-y: visible;
+}
+.tall > * {
+  height: auto;
+}
+
 /* pure scroll distance for a scene's interior — paints nothing */
 .runway {
   position: relative;

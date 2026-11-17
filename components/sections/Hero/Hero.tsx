@@ -153,11 +153,10 @@ export default function Hero() {
       /* ---------- Scroll: gentle layered exit ---------- */
       gsap
         .timeline({
-          scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
+          scrollTrigger: { trigger: el, start: "45% top", end: "bottom top", scrub: true },
         })
-        .to(`.${styles.head}`, { y: -60, autoAlpha: 0.2 }, 0)
-        .to(`.${styles.arch}`, { y: 50 }, 0)
-        .to([`.${styles.sideL}`, `.${styles.sideR}`], { y: -34 }, 0)
+        .to(`.${styles.head}`, { y: -40, autoAlpha: 0.35 }, 0)
+        .to([`.${styles.sideL}`, `.${styles.sideR}`], { y: -24 }, 0)
         .to(`.${styles.ambient}`, { autoAlpha: 0 }, 0);
 
       return () => window.removeEventListener("mousemove", onMove);

@@ -40,6 +40,7 @@ export default function Scene({
   order,
   id,
   keepOnMobile = false,
+  tall = false,
 }: {
   children: ReactNode;
   /** extra scroll length, in viewport heights, for scroll-driven interiors */
@@ -54,11 +55,18 @@ export default function Scene({
    * frame would clip a tall stacked layout — see Scene.module.css.
    */
   keepOnMobile?: boolean;
+  /**
+   * Allow a non-runway scene whose content can exceed 100svh (like Hero and
+   * About on laptop viewports) to grow naturally instead of clipping at 100svh.
+   * Still sits in the scene paint order so it rises cleanly over sticky scenes
+   * behind it.
+   */
+  tall?: boolean;
 }) {
   return (
     <>
       <div
-        className={`${styles.hold} ${keepOnMobile ? styles.keepFrame : ""}`}
+        className={`${tall ? styles.tall : styles.hold} ${keepOnMobile ? styles.keepFrame : ""}`}
         data-scene={id ?? String(order)}
         style={{ zIndex: order }}
       >
