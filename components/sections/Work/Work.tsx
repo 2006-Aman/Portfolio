@@ -33,21 +33,53 @@ export default function Work() {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 1101px) and (prefers-reduced-motion: no-preference)", () => {
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
       const cards = gsap.utils.toArray<HTMLElement>(`.${styles.card}`);
       const counter = el.querySelector<HTMLElement>(`.${styles.count}`);
       const dots = gsap.utils.toArray<HTMLElement>(`.${styles.dot}`);
       const n = cards.length;
+      let lastP = 0;
+
+      const getLayout = () => {
+        const vw = window.innerWidth;
+        if (vw <= 700) {
+          return {
+            spread: Math.min(286, Math.round(vw * 0.78)),
+            curveY: 7,
+            maxY: 70,
+            rot: 14,
+            scaleStep: 0.08,
+          };
+        }
+        if (vw <= 1100) {
+          return {
+            spread: 305,
+            curveY: 8,
+            maxY: 90,
+            rot: 12,
+            scaleStep: 0.07,
+          };
+        }
+        return {
+          spread: SPREAD,
+          curveY: 9,
+          maxY: 110,
+          rot: 10,
+          scaleStep: 0.065,
+        };
+      };
 
       const render = (p: number) => {
+        lastP = p;
+        const { spread, curveY, maxY, rot, scaleStep } = getLayout();
         cards.forEach((card, i) => {
           const d = i - p;
           const ad = Math.abs(d);
           gsap.set(card, {
-            x: d * SPREAD,
-            y: Math.min(ad * ad * 9, 110),
-            rotationY: gsap.utils.clamp(-34, 34, -d * 10),
-            scale: 1 - Math.min(ad * 0.065, 0.38),
+            x: d * spread,
+            y: Math.min(ad * ad * curveY, maxY),
+            rotationY: gsap.utils.clamp(-34, 34, -d * rot),
+            scale: 1 - Math.min(ad * scaleStep, 0.38),
             /* Depth is carried by position, scale and rotation — NOT by
                dimming. The cards on screen (roughly ad <= 2) stay fully
                opaque so every cover reads at its true brightness; only
@@ -65,6 +97,9 @@ export default function Work() {
       };
 
       render(0);
+
+      const onResize = () => render(lastP);
+      window.addEventListener("resize", onResize, { passive: true });
 
       /* the Scene's sticky hold does the pinning; this only reads progress
          across the scene's runway (see lib/scene.ts) */
@@ -86,7 +121,10 @@ export default function Work() {
         scrollTrigger: { trigger: el, start: "top 70%" },
       });
 
-      return () => st.kill();
+      return () => {
+        window.removeEventListener("resize", onResize);
+        st.kill();
+      };
     });
 
     /* Touch & reduced motion: the snap row needs no JS. The reveal tween that

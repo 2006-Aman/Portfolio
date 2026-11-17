@@ -55,7 +55,7 @@ export default function Home() {
           <DesignStack />
         </Scene>
 
-        <Scene order={6} runway={4.5} id="work">
+        <Scene order={6} runway={4.5} id="work" keepOnMobile>
           <Work />
         </Scene>
 

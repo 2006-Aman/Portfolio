@@ -300,30 +300,94 @@
   justify-self: end;
 }
 
-/* ============ Touch / small screens / reduced motion: native snap row ======
-   The reduced-motion clause is load-bearing and must mirror the JS gate in
-   Work.tsx exactly. The desktop arc only runs under
-   `(min-width: 1101px) and (prefers-reduced-motion: no-preference)`, and the
-   fallback branch positions nothing — so a reduced-motion viewport WIDER than
-   1100px used to get the base `position: absolute` cards with no JS ever
-   spreading them: all 14 stacked in one pile at the centre of the track, with
-   only the topmost reachable. */
-@media (max-width: 1100px), (prefers-reduced-motion: reduce) {
+/* ============ Mobile / tablet: same 3D curved scroll arc, sized for phones ====== */
+@media (max-width: 1100px) {
   .work {
+    height: 100svh;
+    min-height: 0;
+    padding: 76px 0 0;
+  }
+  .header {
+    padding: 0 20px;
+  }
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+  .headRow {
+    gap: 8px;
+  }
+  .h2 {
+    font-size: clamp(26px, 7.4vw, 40px);
+    line-height: 1.04;
+  }
+  .lede {
+    font-size: 13px;
+    line-height: 1.45;
+    max-width: 340px;
+  }
+  .stage {
+    perspective: 1200px;
+    min-height: 0;
+  }
+  .track {
+    height: 100%;
+  }
+  .card {
+    width: min(74vw, 280px);
+  }
+  .cover {
+    height: clamp(148px, 24svh, 210px);
+  }
+  .meta {
+    padding: 14px 16px 15px;
+  }
+  .meta h3 {
+    font-size: 15px;
+  }
+  .contribution {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.42;
+  }
+  .tags {
+    font-size: 10px;
+    margin-top: 6px;
+  }
+  .metaFoot {
+    margin-top: 10px;
+  }
+  .open {
+    opacity: 1;
+    transform: none;
+  }
+  .foot {
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    padding: 8px 20px 20px;
+  }
+  .dots {
+    justify-self: end;
+    gap: 6px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+  .hint {
+    display: none;
+  }
+}
+
+/* ============ Reduced motion: static horizontal snap row ====== */
+@media (prefers-reduced-motion: reduce) {
+  .work {
+    height: auto;
     min-height: 0;
     padding: 64px 0 28px;
   }
   .header {
     padding: 0 18px;
-  }
-  .headRow {
-    gap: 14px;
-  }
-  .h2 {
-    font-size: clamp(28px, 8.2vw, 40px);
-  }
-  .lede {
-    font-size: 14px;
   }
   .stage {
     perspective: none;
@@ -366,9 +430,6 @@
     justify-items: center;
     padding: 4px 18px 20px;
   }
-  /* The dots track the arc's active card, and the arc doesn't run here — the
-     snap row is scrolled by thumb. Left visible they sat frozen on card one
-     forever, so they go with the counter and the hint. */
   .count,
   .hint,
   .dots {
