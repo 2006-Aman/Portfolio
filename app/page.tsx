@@ -51,7 +51,7 @@ export default function Home() {
           <Journey />
         </Scene>
 
-        <Scene order={5} id="stack">
+        <Scene order={5} id="stack" keepOnMobile>
           <DesignStack />
         </Scene>
 

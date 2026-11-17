@@ -205,9 +205,9 @@
    orbiting cards is the single heaviest effect on the page */
 @media (max-width: 1000px) {
   .section {
-    height: 76svh;
-    min-height: 520px;
-    max-height: 680px;
+    height: 100svh;
+    min-height: 0;
+    max-height: none;
   }
   .center {
     width: min(210px, 58%);

@@ -57,29 +57,25 @@
    Scenes that genuinely ARE one screen on a phone (the tunnel, the journey,
    the drift wall) opt out with `.keepFrame` and keep the cinematic hold. */
 @media (max-width: 1000px) {
-  .hold,
-  .tall {
-    /* MUST stay `relative` (not `static`) so inline `z-index: order` still
-       creates a stacking context — otherwise sticky `.keepFrame` scenes
-       (Intro at z-index:1 and Journey at z-index:4) paint ON TOP OF Hero,
-       About, DesignStack and Work on phones. */
+  .hold {
+    /* Non-keepFrame holds (e.g. Work's horizontal swipe row) release to auto
+       height on phones while staying `relative` so inline `z-index: order`
+       still rises cleanly above earlier sticky scenes. */
     position: relative;
-    top: auto !important;
     height: auto;
     min-height: auto;
     overflow: visible;
     isolation: isolate;
     background: var(--bg, #fff);
   }
-  .hold > *,
-  .tall > * {
+  .hold > * {
     height: auto;
   }
   .runway {
     display: none;
   }
 
-  /* full-screen-on-mobile scenes keep their frame */
+  /* full-screen-on-mobile scenes keep their sticky frame (Intro, Journey, Stack) */
   .keepFrame {
     position: sticky;
     top: 0;
