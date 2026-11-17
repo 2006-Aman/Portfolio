@@ -207,10 +207,37 @@
 }
 
 @media (max-width: 560px) {
+  .wrap {
+    padding: 56px 18px 64px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+  .h2 {
+    font-size: clamp(28px, 8.2vw, 38px);
+    line-height: 1.08;
+  }
   .beat p {
-    font-size: 17px;
+    font-size: 16px;
   }
   .metrics {
     grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+    margin-top: 40px;
+  }
+  .metricNum {
+    font-size: clamp(28px, 7.5vw, 38px);
+  }
+  .metricLabel {
+    font-size: 12px;
+  }
+  .edu {
+    margin-top: 36px;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .next {
+    margin-top: 24px;
   }
 }

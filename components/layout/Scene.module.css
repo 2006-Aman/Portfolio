@@ -59,12 +59,17 @@
 @media (max-width: 1000px) {
   .hold,
   .tall {
-    position: static;
+    /* MUST stay `relative` (not `static`) so inline `z-index: order` still
+       creates a stacking context — otherwise sticky `.keepFrame` scenes
+       (Intro at z-index:1 and Journey at z-index:4) paint ON TOP OF Hero,
+       About, DesignStack and Work on phones. */
+    position: relative;
     top: auto !important;
     height: auto;
     min-height: auto;
     overflow: visible;
-    isolation: auto;
+    isolation: isolate;
+    background: var(--bg, #fff);
   }
   .hold > *,
   .tall > * {

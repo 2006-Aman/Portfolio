@@ -128,31 +128,36 @@ export default function Hero() {
         });
       });
 
-      /* ---------- Mouse: layered parallax + a breath of portrait tilt ---------- */
-      const layers = gsap.utils.toArray<HTMLElement>("[data-depth]");
-      const setters = layers.map((layer) => ({
-        depth: Number(layer.dataset.depth),
-        x: gsap.quickTo(layer, "x", { duration: 1.1, ease: "power3.out" }),
-        y: gsap.quickTo(layer, "y", { duration: 1.1, ease: "power3.out" }),
-      }));
-      const portraitEl = el.querySelector(`.${styles.portrait}`);
-      const tilt = portraitEl
-        ? gsap.quickTo(portraitEl, "rotation", { duration: 1.4, ease: "power3.out" })
-        : null;
-      const onMove = (e: MouseEvent) => {
-        const cx = (e.clientX / window.innerWidth - 0.5) * 2;
-        const cy = (e.clientY / window.innerHeight - 0.5) * 2;
-        setters.forEach((s) => {
-          s.x(cx * s.depth * 80);
-          s.y(cy * s.depth * 44);
-        });
-        tilt?.(cx * 1.2);
-      };
-      window.addEventListener("mousemove", onMove);
+      /* ---------- Mouse: layered parallax + a breath of portrait tilt (desktop pointer only) ---------- */
+      let onMove: ((e: MouseEvent) => void) | null = null;
+      if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+        const layers = gsap.utils.toArray<HTMLElement>("[data-depth]");
+        const setters = layers.map((layer) => ({
+          depth: Number(layer.dataset.depth),
+          x: gsap.quickTo(layer, "x", { duration: 1.1, ease: "power3.out" }),
+          y: gsap.quickTo(layer, "y", { duration: 1.1, ease: "power3.out" }),
+        }));
+        const portraitEl = el.querySelector(`.${styles.portrait}`);
+        const tilt = portraitEl
+          ? gsap.quickTo(portraitEl, "rotation", { duration: 1.4, ease: "power3.out" })
+          : null;
+        onMove = (e: MouseEvent) => {
+          const cx = (e.clientX / window.innerWidth - 0.5) * 2;
+          const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+          setters.forEach((s) => {
+            s.x(cx * s.depth * 80);
+            s.y(cy * s.depth * 44);
+          });
+          tilt?.(cx * 1.2);
+        };
+        window.addEventListener("mousemove", onMove);
+      }
 
-      /* ---------- Scroll: gentle layered exit as the next scene rises over Hero ---------- */
-      const nextScene = el.closest("[data-scene]")?.nextElementSibling;
-      if (nextScene) {
+      /* ---------- Scroll: gentle layered exit as the next scene rises over Hero (desktop sticky only) ---------- */
+      const mm = gsap.matchMedia();
+      mm.add("(min-width: 1001px)", () => {
+        const nextScene = el.closest("[data-scene]")?.nextElementSibling;
+        if (!nextScene) return;
         gsap
           .timeline({
             scrollTrigger: { trigger: nextScene, start: "top bottom", end: "top top", scrub: true },
@@ -160,9 +165,12 @@ export default function Hero() {
           .to(`.${styles.head}`, { y: -40, autoAlpha: 0.3 }, 0)
           .to([`.${styles.sideL}`, `.${styles.sideR}`], { y: -28 }, 0)
           .to(`.${styles.ambient}`, { autoAlpha: 0 }, 0);
-      }
+      });
 
-      return () => window.removeEventListener("mousemove", onMove);
+      return () => {
+        if (onMove) window.removeEventListener("mousemove", onMove);
+        mm.revert();
+      };
     }, el);
 
     return () => ctx.revert();

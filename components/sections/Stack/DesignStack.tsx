@@ -104,7 +104,7 @@ export default function DesignStack() {
     const N = cards.length;
     if (!N) return;
 
-    const compactMQ = window.matchMedia("(max-width: 700px)");
+    const compactMQ = window.matchMedia("(max-width: 1000px)");
 
     let Rx = 0;
     let Ry = 0;
@@ -117,10 +117,10 @@ export default function DesignStack() {
       const compact = compactMQ.matches;
 
       inner = compact ? INNER_COMPACT : INNER_WIDE;
-      /* the outer ring reaches every edge; on very narrow screens it is
-         allowed to overflow horizontally so the orbit still clears the text */
-      Rx = compact ? Math.max(0.5 * w, 236) : 0.5 * w;
-      Ry = 0.5 * h;
+      /* keep orbiting chips visible within narrow phone viewports while
+         clearing the center text cleanly */
+      Rx = compact ? Math.min(Math.max(0.46 * w, 165), 240) : 0.5 * w;
+      Ry = compact ? Math.min(0.45 * h, 260) : 0.5 * h;
 
       const ratio = Ry / Rx;
       if (

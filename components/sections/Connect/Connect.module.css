@@ -182,11 +182,32 @@
 /* ---------- responsive ---------- */
 @media (max-width: 1000px) {
   .connect {
-    padding-top: 100px;
+    padding-top: 76px;
+  }
+  .head {
+    padding: 0 18px;
+  }
+  .h2 {
+    font-size: clamp(34px, 9.5vw, 52px);
+  }
+  .lede {
+    font-size: 14px;
+    margin-top: 14px;
+  }
+  .socials {
+    margin: 40px auto 0;
+    gap: 10px;
+    padding: 0 16px;
+  }
+  .social {
+    padding: 11px 16px;
+    font-size: 13px;
   }
   .footer {
+    margin-top: 64px;
     flex-direction: column;
     text-align: center;
-    padding: 24px;
+    gap: 10px;
+    padding: 24px 18px 28px;
   }
 }
