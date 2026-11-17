@@ -31,7 +31,7 @@
  * hold already pins them, and two pinning mechanisms fight.
  */
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import styles from "./Scene.module.css";
 
 export default function Scene({
@@ -56,16 +56,39 @@ export default function Scene({
    */
   keepOnMobile?: boolean;
   /**
-   * Allow a non-runway scene whose content can exceed 100svh (like Hero and
-   * About on laptop viewports) to grow naturally instead of clipping at 100svh.
-   * Still sits in the scene paint order so it rises cleanly over sticky scenes
-   * behind it.
+   * For non-runway scenes whose content can exceed 100svh (Hero, About).
+   * Scrolls naturally through its full height so nothing is clipped, then
+   * sticks at its bottom edge (`top: min(0, vh - height)`) so the next scene
+   * still rises smoothly up and covers it like a curtain.
    */
   tall?: boolean;
 }) {
+  const holdRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!tall) return;
+    const el = holdRef.current;
+    if (!el) return;
+
+    const updateTop = () => {
+      const offset = Math.min(0, Math.round(window.innerHeight - el.offsetHeight));
+      el.style.top = `${offset}px`;
+    };
+
+    updateTop();
+    const ro = new ResizeObserver(updateTop);
+    ro.observe(el);
+    window.addEventListener("resize", updateTop, { passive: true });
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", updateTop);
+    };
+  }, [tall]);
+
   return (
     <>
       <div
+        ref={holdRef}
         className={`${tall ? styles.tall : styles.hold} ${keepOnMobile ? styles.keepFrame : ""}`}
         data-scene={id ?? String(order)}
         style={{ zIndex: order }}

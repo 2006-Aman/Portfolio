@@ -20,17 +20,17 @@
   height: 100%;
 }
 
-/* tall scene: rises over earlier sticky scenes (via z-index + opaque bg),
-   then scrolls naturally through its full height so content is never clipped
-   on shorter laptop viewports */
+/* tall sticky scene: scrolls through its full height so content is never clipped
+   on shorter laptop viewports, then pins at its bottom edge (`top` set in JS to
+   min(0, vh - height)) so the next scene rises smoothly up and covers it. */
 .tall {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: auto;
   min-height: 100svh;
   background: var(--bg, #fff);
   isolation: isolate;
   overflow-x: clip;
-  overflow-y: visible;
 }
 .tall > * {
   height: auto;
@@ -57,14 +57,17 @@
    Scenes that genuinely ARE one screen on a phone (the tunnel, the journey,
    the drift wall) opt out with `.keepFrame` and keep the cinematic hold. */
 @media (max-width: 1000px) {
-  .hold {
+  .hold,
+  .tall {
     position: static;
+    top: auto !important;
     height: auto;
     min-height: auto;
     overflow: visible;
     isolation: auto;
   }
-  .hold > * {
+  .hold > *,
+  .tall > * {
     height: auto;
   }
   .runway {
@@ -101,14 +104,17 @@
    user who asked not to have one. */
 @media (prefers-reduced-motion: reduce) {
   .hold,
+  .tall,
   .keepFrame {
     position: static;
+    top: auto !important;
     height: auto;
     min-height: auto;
     overflow: visible;
     isolation: auto;
   }
   .hold > *,
+  .tall > *,
   .keepFrame > * {
     height: auto;
   }

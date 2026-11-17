@@ -150,14 +150,17 @@ export default function Hero() {
       };
       window.addEventListener("mousemove", onMove);
 
-      /* ---------- Scroll: gentle layered exit ---------- */
-      gsap
-        .timeline({
-          scrollTrigger: { trigger: el, start: "45% top", end: "bottom top", scrub: true },
-        })
-        .to(`.${styles.head}`, { y: -40, autoAlpha: 0.35 }, 0)
-        .to([`.${styles.sideL}`, `.${styles.sideR}`], { y: -24 }, 0)
-        .to(`.${styles.ambient}`, { autoAlpha: 0 }, 0);
+      /* ---------- Scroll: gentle layered exit as the next scene rises over Hero ---------- */
+      const nextScene = el.closest("[data-scene]")?.nextElementSibling;
+      if (nextScene) {
+        gsap
+          .timeline({
+            scrollTrigger: { trigger: nextScene, start: "top bottom", end: "top top", scrub: true },
+          })
+          .to(`.${styles.head}`, { y: -40, autoAlpha: 0.3 }, 0)
+          .to([`.${styles.sideL}`, `.${styles.sideR}`], { y: -28 }, 0)
+          .to(`.${styles.ambient}`, { autoAlpha: 0 }, 0);
+      }
 
       return () => window.removeEventListener("mousemove", onMove);
     }, el);
